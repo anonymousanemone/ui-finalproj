@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #c3a7dd; /* light lavender/purple */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.home-background {
+    background-image: url("/static/images/baking_bg-page-001.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* or black, depending on image */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    padding: 2rem;
+}
