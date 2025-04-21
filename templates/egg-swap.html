@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='egg-swap.css') }}">
+
+<div class="egg-swap-container">
+  <div class="left-panel">
+    <img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg" class="egg-icon">
+    <div class="post-it-box">
+      <h1>Egg Swap!</h1>
+    </div>
+    <a href="{{ url_for('threetab') }}" class="btn-purple back-button">BACK◂</a>
+  </div>
+
+  <div class="right-panel">
+    <div class="question-bubble">
+      <div class="play-icon">▶</div>
+      <p>Quick: You want to make muffins, but the price of a carton of eggs from the store is $9!! What do you do?</p>
+    </div>
+    <div class="response-options">
+      <button class="answer-option">Pay the $9</button>
+      <button class="answer-option">Use Applesauce instead!</button>
+      <button class="answer-option">Cry</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

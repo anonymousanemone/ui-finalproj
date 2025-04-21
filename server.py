@@ -23,6 +23,9 @@ def mcchoice():
 def dragdrop():
     # session.clear()
     return render_template('drag-drop.html')
+@app.route('/egg-swap')
+def egg_swap():
+    return render_template('egg-swap.html')
 
 # Start learning process
 # @app.route('/start')
