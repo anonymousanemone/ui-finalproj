@@ -139,6 +139,30 @@ body {
 .category-text {
     font-family: 'Silkscreen', sans-serif;
     font-size: 1.5rem;
-    color: white;
+    color: #683b0b;
+    color: #683b0b;
     margin-top: 0.5rem;
+}
+
+.category-image {
+    width: 150px;
+    height: auto;
+    image-rendering: pixelated; /* Ensures the pixel art style */
+    transition: transform 0.3s ease; /* Smooth scaling effect */
+}
+
+.category-image:hover {
+    transform: scale(1.2); /* Scales the image to 120% of its size */
+}
+
+.water-background {
+    background-image: url("/static/images/water_bg.jpg"); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }

@@ -43,6 +43,54 @@ def learn_1():
 def learn_2():
     return render_template('learn_2.html')
 
+@app.route('/learn/eggs')
+def learn_eggs():
+    return render_template(
+        'learn_template.html',
+        title="EGGS!",
+        uses=[
+            {"text": "Binding", "link": "#"},
+            {"text": "Leavening", "link": "#"},
+            {"text": "Moisture", "link": None},
+            {"text": "Richness", "link": None},
+        ],
+        note="click on the word for a definition!",
+        image="/static/images/eggs_mixing.jpg",
+        back_link="/learn/2"
+    )
+
+@app.route('/learn/dairy')
+def learn_dairy():
+    return render_template(
+        'learn_template.html',
+        title="DAIRY!",
+        uses=[
+            {"text": "Creaminess", "link": "#"},
+            {"text": "Moisture", "link": "#"},
+            {"text": "Flavor", "link": None},
+            {"text": "Richness", "link": None},
+        ],
+        note="click on the word for a definition!",
+        image="/static/images/dairy.jpg",
+        back_link="/learn/2"
+    )
+
+@app.route('/learn/gluten')
+def learn_gluten():
+    return render_template(
+        'learn_template.html',
+        title="GLUTEN!",
+        uses=[
+            {"text": "Structure", "link": "#"},
+            {"text": "Elasticity", "link": "#"},
+            {"text": "Chewiness", "link": None},
+            {"text": "Binding", "link": None},
+        ],
+        note="click on the word for a definition!",
+        image="/static/images/gluten.jpg",
+        back_link="/learn/2"
+    )
+
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
 def quiz(question_num):
