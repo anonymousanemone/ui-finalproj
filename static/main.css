@@ -139,6 +139,17 @@ body {
 .category-text {
     font-family: 'Silkscreen', sans-serif;
     font-size: 1.5rem;
-    color: white;
+    color: #683b0b;
     margin-top: 0.5rem;
+}
+
+.category-image {
+    width: 150px;
+    height: auto;
+    image-rendering: pixelated; /* Ensures the pixel art style */
+    transition: transform 0.3s ease; /* Smooth scaling effect */
+}
+
+.category-image:hover {
+    transform: scale(1.2); /* Scales the image to 120% of its size */
 }
