@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='category.css') }}">
+
+<div class="three-tab-wrapper">
+  <h1 class="title-box">Pick a Category to Explore:</h1>
+
+  <div class="category-box">
+    <a href="{{ url_for('learn', lesson_num=1) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg" class="pixel-icon">
+      <p>EGGS!</p>
+    </a>
+    <a href="{{ url_for('learn', lesson_num=2) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/milk.png') }}" alt="Milk" class="pixel-icon">
+      <p>DAIRY!</p>
+    </a>
+    <a href="{{ url_for('learn', lesson_num=3) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/gluten.png') }}" alt="Wheat" class="pixel-icon">
+      <p>GLUTEN!</p>
+    </a>
+  </div>
+
+  <a href="{{ url_for('home') }}" class="back-button">BACK◂</a>
+</div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const visitedTabs = new Set();
+    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+    const nextBtn = document.getElementById('nextBtn');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('shown.bs.tab', function (e) {
+        const tabId = e.target.getAttribute('data-bs-target');
+        visitedTabs.add(tabId);
+        if (visitedTabs.size === tabButtons.length) {
+          nextBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+
+{% endblock %}
