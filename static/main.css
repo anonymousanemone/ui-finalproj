@@ -1,0 +1,32 @@
+.correct {
+    background-color: #d4edda !important;
+    border-color: #28a745 !important;
+  }
+  .incorrect {
+    background-color: #f8d7da !important;
+    border-color: #dc3545 !important;
+  }
+
+  .draggable-item {
+    cursor: move;
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .drop-zone {
+    min-height: 60px;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    background-color: #fafafa;
+  }
+  .matched {
+    border-color: green !important;
+    background-color: #d4edda !important;
+  }
+  .mismatched {
+    border-color: red !important;
+    background-color: #f8d7da !important;
+  }

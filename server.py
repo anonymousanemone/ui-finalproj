@@ -11,6 +11,19 @@ def home():
     # session.clear()
     return render_template('index.html')
 
+@app.route('/three-tab')
+def threetab():
+    # session.clear()
+    return render_template('three-tab.html')
+@app.route('/mc-choice')
+def mcchoice():
+    # session.clear()
+    return render_template('mc-choice.html')
+@app.route('/drag-drop')
+def dragdrop():
+    # session.clear()
+    return render_template('drag-drop.html')
+
 # Start learning process
 # @app.route('/start')
 # def start():

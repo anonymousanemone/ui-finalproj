@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3 class="mb-4">What is the capital of France?</h3>
+<form id="quizForm">
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="radio" name="question" id="option1" value="London">
+    <label class="form-check-label" for="option1">London</label>
+  </div>
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="radio" name="question" id="option2" value="Berlin">
+    <label class="form-check-label" for="option2">Berlin</label>
+  </div>
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="radio" name="question" id="option3" value="Paris">
+    <label class="form-check-label" for="option3">Paris</label>
+  </div>
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="radio" name="question" id="option4" value="Rome">
+    <label class="form-check-label" for="option4">Rome</label>
+  </div>
+
+  <div class="mt-3">
+    <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+  </div>
+  <div id="feedback" class="mt-3 fw-bold"></div>
+</form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const correctAnswer = "Paris";
+const submitBtn = document.getElementById('submitBtn');
+const feedback = document.getElementById('feedback');
+const options = document.querySelectorAll('input[name="question"]');
+
+let submitted = false;
+
+submitBtn.addEventListener('click', () => {
+  if (!submitted) {
+    const selected = document.querySelector('input[name="question"]:checked');
+    if (!selected) {
+      feedback.textContent = "Please select an answer.";
+      feedback.className = "text-danger mt-3 fw-bold";
+      return;
+    }
+
+    options.forEach(option => {
+      const label = document.querySelector(`label[for="${option.id}"]`);
+      label.classList.remove("correct", "incorrect");
+
+      if (option.value === correctAnswer) {
+        label.classList.add("correct");
+      }
+
+      if (option.checked && option.value !== correctAnswer) {
+        label.classList.add("incorrect");
+      }
+    });
+
+    feedback.textContent = selected.value === correctAnswer ? "Correct!" : `Incorrect. The correct answer is ${correctAnswer}.`;
+    feedback.className = selected.value === correctAnswer ? "text-success mt-3 fw-bold" : "text-danger mt-3 fw-bold";
+    submitBtn.textContent = "Next";
+    submitted = true;
+  } else {
+    // Go to the next question or reload (you can customize this part)
+    location.reload(); // or redirect to another question
+  }
+});
+</script>
+
+    <!-- <form method="POST" action="/learn/{{ next_lesson }}">
+        <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
+        <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
+    </form> -->
+{% endblock %}

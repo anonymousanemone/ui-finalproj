@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3 class="mb-4">Match the countries to their capitals</h3>
+
+    <div class="mb-4">
+      <h5>Available Capitals</h5>
+      <div class="drop-zone" id="draggables" data-container="true">
+        <div class="draggable-item" data-answer="France">Paris</div>
+        <div class="draggable-item" data-answer="Germany">Berlin</div>
+        <div class="draggable-item" data-answer="Italy">Rome</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <label>France</label>
+        <div class="drop-zone" data-country="France"></div>
+      </div>
+      <div class="col-md-4">
+        <label>Germany</label>
+        <div class="drop-zone" data-country="Germany"></div>
+      </div>
+      <div class="col-md-4">
+        <label>Italy</label>
+        <div class="drop-zone" data-country="Italy"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-4" id="submitBtn" disabled>Submit</button>
+    <div id="result" class="mt-3 fw-bold"></div>
+
+
+  <script>
+    const correctAnswers = {
+      France: "Paris",
+      Germany: "Berlin",
+      Italy: "Rome"
+    };
+
+    function updateSubmitButton() {
+      let allFilled = true;
+      $(".drop-zone").each(function () {
+        if (!$(this).data("country")) return; // Skip original box
+        if ($(this).find(".draggable-item").length !== 1) {
+          allFilled = false;
+        }
+      });
+      $("#submitBtn").prop("disabled", !allFilled);
+    }
+
+    $(function () {
+      $(".draggable-item").draggable({
+        revert: "invalid",
+        helper: "clone",
+        start: function (event, ui) {
+          // If dragging from a drop-zone, remove the original so it can be moved
+          if (!$(this).parent().is("#draggables")) {
+            $(this).remove();
+            updateSubmitButton();
+          }
+        }
+      });
+
+      $(".drop-zone").droppable({
+        accept: ".draggable-item",
+        drop: function (event, ui) {
+          if ($(this).find(".draggable-item").length === 0) {
+            const item = ui.draggable.clone().draggable({
+              revert: "invalid",
+              helper: "clone",
+              start: function () {
+                $(this).remove();
+                updateSubmitButton();
+              }
+            });
+            $(this).append(item);
+            updateSubmitButton();
+          }
+        }
+      });
+
+      $("#submitBtn").click(function () {
+        let allCorrect = true;
+
+        $(".drop-zone").each(function () {
+          const country = $(this).data("country");
+          if (!country) return; // Skip the original draggables container
+
+          const droppedItem = $(this).find(".draggable-item");
+          const userAnswer = droppedItem.data("answer");
+
+          $(this).removeClass("matched mismatched");
+
+          if (userAnswer === correctAnswers[country]) {
+            $(this).addClass("matched");
+          } else {
+            allCorrect = false;
+            $(this).addClass("mismatched");
+            $(this).html(`
+              <div class="draggable-item mismatched">${userAnswer}</div>
+              <em class="d-block mt-1">Correct: ${correctAnswers[country]}</em>
+            `);
+          }
+        });
+
+        $("#result")
+          .text(allCorrect ? "All matches correct! 🎉" : "Some matches were incorrect. See above.")
+          .removeClass()
+          .addClass("mt-3 fw-bold")
+          .addClass(allCorrect ? "text-success" : "text-danger");
+      });
+    });
+  </script>
+    <!-- <form method="POST" action="/learn/{{ next_lesson }}">
+        <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
+        <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
+    </form> -->
+{% endblock %}
