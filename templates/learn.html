@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Sample learn title</h2>
+    <p>Sample learn content</p>
+
+    <form method="POST" action="/learn/{{ next_lesson }}">
+        <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
+        <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
+    </form>
+{% endblock %}
