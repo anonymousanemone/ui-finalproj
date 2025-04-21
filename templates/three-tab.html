@@ -1,26 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='category.css') }}">
 
-<div class="container py-5">
-<h2 class="mb-4">Tab Navigation Example</h2>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Tab 1</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab">Tab 3</button>
-      </li>
-    </ul>
-    <div class="tab-content p-3 border border-top-0" id="myTabContent">
-      <div class="tab-pane fade show active" id="tab1" role="tabpanel">This is content for Tab 1.</div>
-      <div class="tab-pane fade" id="tab2" role="tabpanel">This is content for Tab 2.</div>
-      <div class="tab-pane fade" id="tab3" role="tabpanel">This is content for Tab 3.</div>
-    </div>
-    <button id="nextBtn" class="btn btn-primary mt-3" disabled>Next</button>
+<div class="three-tab-wrapper">
+  <h1 class="title-box">Pick a Category to Explore:</h1>
+
+  <div class="category-box">
+    <a href="{{ url_for('learn', lesson_num=1) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg" class="pixel-icon">
+      <p>EGGS!</p>
+    </a>
+    <a href="{{ url_for('learn', lesson_num=2) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/milk.png') }}" alt="Milk" class="pixel-icon">
+      <p>DAIRY!</p>
+    </a>
+    <a href="{{ url_for('learn', lesson_num=3) }}" class="category-item">
+      <img src="{{ url_for('static', filename='images/gluten.png') }}" alt="Wheat" class="pixel-icon">
+      <p>GLUTEN!</p>
+    </a>
+  </div>
+
+  <a href="{{ url_for('home') }}" class="back-button">BACK◂</a>
 </div>
+
   <!-- Bootstrap JS and dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
