@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container py-5">
     <h2>Sample learn title</h2>
     <p>Sample learn content</p>
     <p><a href="/three-tab">Three tabs</a> </br>
@@ -11,4 +12,5 @@
         <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
         <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
     </form>
+</div>
 {% endblock %}
