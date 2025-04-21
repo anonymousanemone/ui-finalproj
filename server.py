@@ -19,9 +19,13 @@ def home():
 #     return redirect(url_for('learn', lesson_num=1))
 
 # Learning route
-@app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
-def learn(lesson_num):
-    return render_template('learn.html', lesson_num=lesson_num)
+@app.route('/learn/1', methods=['GET', 'POST'])
+def learn_1():
+    return render_template('learn.html')
+
+@app.route('/learn/2')
+def learn_2():
+    return render_template('learn_2.html')
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
