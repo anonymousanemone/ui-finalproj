@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="learn-background text-center d-flex justify-content-center align-items-center">
+    <div class="notebook-container">
+        <h1 class="notebook-title">Pick a Category to Explore:</h1>
+        <div class="category-container">
+            <div class="category">
+                <img src="/static/images/egg.png" alt="Eggs" class="category-image">
+                <p class="category-text">EGGS!</p>
+            </div>
+            <div class="category">
+                <img src="/static/images/milk.png" alt="Dairy" class="category-image">
+                <p class="category-text">DAIRY!</p>
+            </div>
+            <div class="category">
+                <img src="/static/images/wheat.png" alt="Gluten" class="category-image">
+                <p class="category-text">GLUTEN!</p>
+            </div>
+        </div>
+        <a href="/learn/1" class="btn btn-purple">BACK</a>
+    </div>
+</div>
+
+{% endblock %}

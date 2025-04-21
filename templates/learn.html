@@ -1,16 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container py-5">
-    <h2>Sample learn title</h2>
-    <p>Sample learn content</p>
-    <p><a href="/three-tab">Three tabs</a> </br>
-        <a href="/mc-choice">MC Choice</a></br>
-        <a href="/drag-drop">Drag drop</a>
-    </p>
 
-    <form method="POST" action="/learn/{{ next_lesson }}">
-        <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
-        <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
-    </form>
+<div class="learn-background text-center d-flex justify-content-center align-items-center">
+    <div class="notebook-container">
+        <h1 class="notebook-title">Substitution Categories!</h1>
+        <p class="notebook-text">Now, Let's Take a Deep Dive into Why Each Substitution Works!</p>
+        <div class="button-container">
+            <a href="/" class="btn btn-purple">BACK</a>
+            <a href="/learn/2" class="btn btn-purple">NEXT</a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+body {
+    font-family: 'Silkscreen', sans-serif;
+}
+
 .navbar {
     background-color: #c3a7dd; /* light lavender/purple */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -5,6 +11,15 @@
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+.navbar a {
+    color: #523969;
+    text-decoration: none; 
+}
+
+.navbar a:hover {
+    color: #9a6ec1; 
 }
 
 .home-background {
@@ -17,40 +32,113 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white; /* or black, depending on image */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     padding: 2rem;
 }
-.correct {
-    background-color: #d4edda !important;
-    border-color: #28a745 !important;
-  }
-  .incorrect {
-    background-color: #f8d7da !important;
-    border-color: #dc3545 !important;
-  }
 
-  .draggable-item {
-    cursor: move;
-    padding: 10px;
-    background-color: #f0f0f0;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .drop-zone {
-    min-height: 60px;
-    padding: 10px;
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    background-color: #fafafa;
-  }
-  .matched {
-    border-color: green !important;
-    background-color: #d4edda !important;
-  }
-  .mismatched {
-    border-color: red !important;
-    background-color: #f8d7da !important;
-  }
+.home-box {
+    background-color: #f9d27d;
+    color: #683b0b;
+    border: 5px solid #d35400;
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: 10px 10px 0 #a04000;
+    position: relative;
+    max-width: 750px;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-purple {
+    width: 150px;
+    background-color: #c3a7dd;
+    color: #523969;
+    border: 3px solid #523969;
+    border-radius: 15px;
+    box-shadow: #523969 4px 4px 0;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 25px;
+}
   
+.btn-purple:hover {
+    background-color: #aa8cc5;
+}
+
+.header-banner {
+    background-color: #f39c12;
+    height: 20px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+ 
+.banner-text {
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    margin: 0;
+}
+
+.learn-background {
+    background-image: url("/static/images/learn_bg.jpg"); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.notebook-container {
+    background-color: #fdf1d4;
+    border: 5px solid #d35400;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 10px 10px 0 #a04000;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+}
+
+.notebook-title {
+    font-family: 'Silkscreen', cursive;
+    color: #d4a017;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.notebook-text {
+    font-family: 'Silkscreen', cursive;
+    color: #c0392b;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.category-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.category {
+    text-align: center;
+}
+
+.category-image {
+    width: 150px;
+    height: auto;
+    image-rendering: pixelated; /* Ensures the pixel art style */
+}
+
+.category-text {
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    margin-top: 0.5rem;
+}
