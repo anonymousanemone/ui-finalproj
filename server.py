@@ -18,25 +18,11 @@ for category, contents in data.lessons.items():
         lesson_map.append({
             "category": contents[0],
             "data": contents[i],
-            "template": contents[i]
+            "template": data.template_map[i]
         })
 
 for i, thing in enumerate(lesson_map):
     print(i, thing)
-#     for local_step, data in sorted(steps.items()):
-#         global_steps.append({
-#             "category": category,
-#             "local_step": local_step,
-#             "data": data
-#         })
-
-# # Add global step numbers
-# for i, step in enumerate(global_steps):
-#     step["global_step"] = i + START_INDEX
-
-# # Build a lookup table
-# step_lookup = {step["global_step"]: step for step in global_steps}
-# print(step_lookup)
 
 
 # Home route
@@ -45,10 +31,6 @@ def home():
     # session.clear()
     return render_template('index.html')
 
-@app.route('/three-tab')
-def threetab():
-    # session.clear()
-    return render_template('three-tab.html')
 @app.route('/mc-choice')
 def mcchoice():
     # session.clear()
@@ -57,7 +39,7 @@ def mcchoice():
 def dragdrop():
     # session.clear()
     return render_template('drag-drop.html')
-@app.route('/egg-swap')
+@app.route('/learn/7')
 def egg_swap():
     return render_template('egg-swap.html')
 
@@ -71,74 +53,139 @@ def egg_swap():
 # Learning route
 @app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
 def learn_lesson(lesson_num):
-    if lesson_num==1:
-        return render_template('learn_1.html')
-    elif lesson_num==2:
-        return render_template('learn_2.html')
-    else:
-        return 
-    
-# def generate_lesson_num():
-#     from flask import Flask, render_template, abort
-#     global_steps = []
-#     START_INDEX = 3
+    lessons = {
+        3: {
+            "title": "EGGS!",
+            "uses": [
+                {"text": "Binding", "link": "/learn/4"},
+                {"text": "Leavening", "link": "/learn/5"},
+                {"text": "Moisture", "link": None},
+                {"text": "Richness", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/4"
+        },
+        4: {
+            "title": "Binding",
+            "note": "Definition: The process of holding ingredients together to maintain structure and prevent crumbling",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/3",
+            "next_link": "/learn/5"
+        },
+        5: {
+            "title": "Leavening",
+            "note": "Definition: The process of incorporating air into a batter or dough to help it rise and become light and fluffy.",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/3",
+            "next_link": "/learn/6"
+        },
+        6: {
+            "title": "Egg Substitutes Overview",
+            "substitutes": [
+                {
+                    "name": "Banana",
+                    "works_best": "Brownies, pancakes!",
+                    "why_it_works": "Adds sweetness + moisture",
+                    "color": "#f4d03f" 
+                },
+                {
+                    "name": "Flax Seeds",
+                    "works_best": "Cookies, muffins!",
+                    "why_it_works": "Great binder with its gel-like texture!",
+                    "color": "#5dade2"  
+                },
+                {
+                    "name": "Applesauce",
+                    "works_best": "Cakes, muffins!",
+                    "why_it_works": "Neutral, light texture, and adds moisture!",
+                    "color": "#a569bd"  
+                }
+            ],
+            "back_link": "/learn/5",
+            "next_link": "/learn/7"
+        },
+        15: {
+            "title": "DAIRY!",
+            "uses": [
+                {"text": "Creaminess", "link": None},
+                {"text": "Moisture", "link": None},
+                {"text": "Flavor", "link": None},
+                {"text": "Richness", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/dairy.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/16"
+        },
+        16: {
+            "title": "Dairy Substitutes Overview",
+            "substitutes": [
+                {
+                    "name": "Milk -> Non-Dairy Milk",
+                    "adds": "Creaminess, Moisture!",
+                    "why_it_works": "Plant milks mimic texture and liquid content of dairy",
+                    "color": "#f4d03f" 
+                },
+                {
+                    "name": "Flax Seeds",
+                    "adds": "Richness, fat",
+                    "why_it_works": "Fats provide tenderness and mouthfeel",
+                    "color": "#5dade2"  
+                },
+                {
+                    "name": "Applesauce",
+                    "adds": "Acidity, rise!",
+                    "why_it_works": "Acid reacts with baking soda to create leavening",
+                    "color": "#a569bd"  
+                }
+            ],
+            "back_link": "/learn/15",
+            "next_link": "/learn/17"
+        },
+        21: {
+            "title": "GLUTEN!",
+            "uses": [
+                {"text": "Structure", "link": None},
+                {"text": "Elasticity", "link": "#"},
+                {"text": "Chewiness", "link": None},
+                {"text": "Binding", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/flour.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/22"
+        }
+    }
 
-#     # Flatten the structure: [(category, local_step, data)]
-#     for category, steps in data.lessons.items():
-#         for local_step, data in sorted(steps.items()):
-#             global_steps.append({
-#                 "category": category,
-#                 "local_step": local_step,
-#                 "data": data
-#             })
+    # Check if the lesson exists
+    if lesson_num in lessons:
+        lesson = lessons[lesson_num]
 
-#     # Add global step numbers
-#     for i, step in enumerate(global_steps):
-#         step["global_step"] = i + START_INDEX
+        # Render `substitutes.html` if the lesson has substitutes
+        if "substitutes" in lesson:
+            return render_template(
+                'substitutes.html',
+                title=lesson["title"],
+                substitutes=lesson["substitutes"],
+                back_link=lesson.get("back_link"),
+                next_link=lesson.get("next_link")
+            )
 
-#     # Build a lookup table
-#     step_lookup = {step["global_step"]: step for step in global_steps}
+        # Render `learn_template.html` for other lessons
+        return render_template(
+            'learn_template.html',
+            title=lesson["title"],
+            uses=lesson.get("uses", []),  # Default to an empty list if `uses` is not present
+            note=lesson.get("note", ""),
+            image=lesson.get("image", ""),
+            back_link=lesson.get("back_link"),
+            next_link=lesson.get("next_link")
+        )
 
-
-# @app.route('/learn/<int:step>')
-# def learn(step):
-#     if step not in step_lookup:
-#         abort(404)
-
-#     lesson = step_lookup[step]
-#     category = lesson["category"]
-#     local_step = lesson["local_step"]
-#     data = lesson["data"]
-
-#     # Previous/Next global steps
-#     prev_step = step - 1 if (step - 1) in step_lookup else None
-#     next_step = step + 1 if (step + 1) in step_lookup else None
-
-#     # Determine which template to use based on local step
-#     if local_step == 0:
-#         template = 'title.html'
-#         context = data
-#     elif local_step == 1:
-#         template = 'uses.html'
-#         context = {'uses': data['uses']}
-#     elif local_step == 2:
-#         template = 'substitutes.html'
-#         context = {'substitutes': data['susbtitutes']}
-#     elif local_step == 3:
-#         template = 'mcq.html'
-#         context = {'mcq': data['mc-q']}
-#     elif local_step == 4:
-#         template = 'dragdrop.html'
-#         context = {'dragdrop': data['drag-drop']}
-#     else:
-#         abort(404)
-
-#     return render_template(template,
-#                            step=step,
-#                            category=category,
-#                            prev_step=prev_step,
-#                            next_step=next_step,
-#                            **context)
+    # Handle invalid lesson numbers
+    return "Lesson not found", 404
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
