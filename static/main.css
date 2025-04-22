@@ -106,14 +106,21 @@ body {
 }
 
 .notebook-title {
-    font-family: 'Silkscreen', cursive;
+    font-family: 'Silkscreen', sans-serif;
     color: #d4a017;
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
+.notebook-subtitle {
+    font-family: 'Silkscreen', sans-serif;
+    color: #c0392b;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
 .notebook-text {
-    font-family: 'Silkscreen', cursive;
+    font-family: 'Silkscreen', sans-serif;
     color: #c0392b;
     font-size: 1.25rem;
     margin-bottom: 2rem;
@@ -128,12 +135,6 @@ body {
 
 .category {
     text-align: center;
-}
-
-.category-image {
-    width: 150px;
-    height: auto;
-    image-rendering: pixelated; /* Ensures the pixel art style */
 }
 
 .category-text {
@@ -165,4 +166,35 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+}
+
+.ingredient-container {
+    align-items: center;
+    padding: 2rem;
+    background-color: #fdf1d4;
+    border: 5px solid #d35400;
+    border-radius: 15px;
+    box-shadow: 10px 10px 0 #a04000;
+    max-width: 900px;
+    width: 90%;
+    max-height: 500px;;
+    text-align: left;
+}
+
+.ingredient-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.ingredient-image-container {
+    flex: 1;
+    padding: 1rem;
+}
+
+.ingredient-image {
+    max-width: auto;
+    max-height: 490px;
+    border: 5px solid #d35400;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 #a04000;
 }
