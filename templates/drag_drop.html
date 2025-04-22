@@ -1,35 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container py-5">
-<h3 class="mb-4">Match the countries to their capitals</h3>
+<h3 class="mb-4">Drap and Drop to match the functionality!</h3>
 
     <div class="mb-4">
-      <h5>Available Capitals</h5>
       <div class="drop-zone" id="draggables" data-container="true">
-        <div class="draggable-item" data-answer="France">Paris</div>
-        <div class="draggable-item" data-answer="Germany">Berlin</div>
-        <div class="draggable-item" data-answer="Italy">Rome</div>
+        {% for drag in contents.drag_drop.drags %}
+        <div class="draggable-item">{{drag}}</div>
+        {% endfor %}
       </div>
     </div>
 
     <div class="row">
+      {% for drop in contents.drag_drop.drops %}
       <div class="col-md-4">
-        <label>France</label>
-        <div class="drop-zone" data-country="France"></div>
+        <label>{{drop}}</label>
+        <div class="drop-zone"></div>
       </div>
-      <div class="col-md-4">
-        <label>Germany</label>
-        <div class="drop-zone" data-country="Germany"></div>
-      </div>
-      <div class="col-md-4">
-        <label>Italy</label>
-        <div class="drop-zone" data-country="Italy"></div>
-      </div>
+      {% endfor %}
     </div>
 
     <button class="btn btn-primary mt-4" id="submitBtn" disabled>Submit</button>
     <div id="result" class="mt-3 fw-bold"></div>
 </div>
+<a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
+<a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
+
 
   <script>
     const correctAnswers = {

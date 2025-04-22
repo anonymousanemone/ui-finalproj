@@ -6,19 +6,19 @@
         <h1 class="notebook-title">Pick a Category to Explore:</h1>
         <div class="category-container">
             <div class="category">
-                <a href="/learn/3">
+                <a href="/learn/{{homes[0]}}" class="category-link">
                     <img src="/static/images/egg.png" alt="Eggs" class="category-image">
                 </a>
                 <p class="category-text">EGGS!</p>
             </div>
             <div class="category">
-                <a href="/learn/15">
+                <a href="/learn/{{homes[1]}}" class="category-link">
                     <img src="/static/images/milk.png" alt="Dairy" class="category-image">
                 </a>
                 <p class="category-text">DAIRY!</p>
             </div>
             <div class="category">
-                <a href="/learn/21">
+                <a href="/learn/{{homes[2]}}" class="category-link">
                     <img src="/static/images/gluten.png" alt="Gluten" class="category-image">
                 </a>
                 <p class="category-text">GLUTEN!</p>
@@ -27,5 +27,24 @@
         <a href="/learn/1" class="btn btn-purple">BACK</a>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        // Loop through each category link
+        $('.category-link').each(function() {
+        const $link = $(this);
+        const href = $link.attr('href');
+        const $categoryDiv = $link.closest('.category');
 
+        // Use href as a unique key
+        if (localStorage.getItem('visited_' + href)) {
+            $categoryDiv.css('background-color', '#e0ffe0'); // Customize color
+        }
+
+        // Set visited on click
+        $link.on('click', function() {
+            localStorage.setItem('visited_' + href, 'true');
+        });
+        });
+    });
+</script>
 {% endblock %}
