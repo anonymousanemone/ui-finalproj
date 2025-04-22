@@ -2,6 +2,11 @@
 {% block content %}
     <h2>Sample quiz title</h2>
     <p>Sample quiz content</p>
+    <p><a href="/three-tab">Three tabs</a> </br>
+        <a href="/mc-choice">MC Choice</a></br>
+        <a href="/drag-drop">Drag drop</a>
+        <a href="/egg-swap">Egg swap</a>
+    </p>
 
     <form method="POST" action="/learn/{{ next_lesson }}">
         <input type="hidden" name="lesson_num" value="{{ lesson_num }}">

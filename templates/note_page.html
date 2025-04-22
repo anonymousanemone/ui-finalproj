@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="water-background text-center d-flex justify-content-center align-items-center">
+    <div class="ingredient-container d-flex">
+        <div class="ingredient-content">
+            <h1 class="notebook-title">{{ title }}</h1>
+            <h2 class="notebook-subtitle">Uses:</h2>
+            <ul class="notebook-list">
+                {% for use in uses %}
+                <li>
+                    {% if use.link %}
+                    <a href="{{ use.link }}" class="notebook-link">{{ use.text }}</a>
+                    {% else %}
+                    {{ use.text }}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="notebook-note">{{ note }}</p>
+            <a href="{{ back_link }}" class="btn btn-purple mt-3">BACK</a>
+            <a href="{{ next_link }}" class="btn btn-purple mt-3">NEXT</a>
+        </div>
+        <div class="ingredient-image-container">
+            <img src="{{ image }}" alt="{{ title }}" class="ingredient-image">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

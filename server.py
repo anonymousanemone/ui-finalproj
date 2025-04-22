@@ -1,9 +1,43 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
 from datetime import datetime
+import data
 
 app = Flask(__name__)
 app.secret_key = 'secret_key_for_session'
+
+# Global lesson steps (flattened)
+lesson_map = []
+START_INDEX = 3
+
+
+for category, contents in data.lessons.items():
+    for i in range (1, 5):
+        # contents[i].append(contents[0].items())
+        # print(contents[0], contents[i])
+        lesson_map.append({
+            "category": contents[0],
+            "data": contents[i],
+            "template": contents[i]
+        })
+
+for i, thing in enumerate(lesson_map):
+    print(i, thing)
+#     for local_step, data in sorted(steps.items()):
+#         global_steps.append({
+#             "category": category,
+#             "local_step": local_step,
+#             "data": data
+#         })
+
+# # Add global step numbers
+# for i, step in enumerate(global_steps):
+#     step["global_step"] = i + START_INDEX
+
+# # Build a lookup table
+# step_lookup = {step["global_step"]: step for step in global_steps}
+# print(step_lookup)
+
 
 # Home route
 @app.route('/')
@@ -35,80 +69,76 @@ def egg_swap():
 #     return redirect(url_for('learn', lesson_num=1))
 
 # Learning route
-@app.route('/learn/1', methods=['GET', 'POST'])
-def learn_1():
-    # Render the specific template for /learn/1
-    return render_template('learn.html')
-
-@app.route('/learn/2', methods=['GET', 'POST'])
-def learn_2():
-    # Render the specific template for /learn/2
-    return render_template('learn_2.html')
-
 @app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
 def learn_lesson(lesson_num):
-    lessons = {
-        3: {
-            "title": "EGGS!",
-            "uses": [
-                {"text": "Binding", "link": "#"},
-                {"text": "Leavening", "link": "#"},
-                {"text": "Moisture", "link": None},
-                {"text": "Richness", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/eggs_mixing.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/4"
-        },
-        4: {
-            "title": "Binding",
-            "note": "Definition: The process of holding ingredients together to maintain structure and prevent crumbling",
-            "image": "/static/images/eggs_mixing.jpg",
-            "back_link": "/learn/3",
-            "next_link": "/learn/5"
-        },
-        15: {
-            "title": "DAIRY!",
-            "uses": [
-                {"text": "Creaminess", "link": None},
-                {"text": "Moisture", "link": None},
-                {"text": "Flavor", "link": None},
-                {"text": "Richness", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/dairy.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/16"
-        },
-        21: {
-            "title": "GLUTEN!",
-            "uses": [
-                {"text": "Structure", "link": None},
-                {"text": "Elasticity", "link": "#"},
-                {"text": "Chewiness", "link": None},
-                {"text": "Binding", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/flour.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/22"
-        }
-    }
-
-    # Check if the lesson exists
-    if lesson_num in lessons:
-        return render_template(
-            'learn_template.html',
-            title=lessons[lesson_num]["title"],
-            uses=lessons[lesson_num]["uses"],
-            note=lessons[lesson_num]["note"],
-            image=lessons[lesson_num]["image"],
-            back_link=lessons[lesson_num]["back_link"]
-        )
+    if lesson_num==1:
+        return render_template('learn_1.html')
+    elif lesson_num==2:
+        return render_template('learn_2.html')
     else:
-        # Handle invalid lesson numbers
-        return "Lesson not found", 404
+        return 
+    
+# def generate_lesson_num():
+#     from flask import Flask, render_template, abort
+#     global_steps = []
+#     START_INDEX = 3
+
+#     # Flatten the structure: [(category, local_step, data)]
+#     for category, steps in data.lessons.items():
+#         for local_step, data in sorted(steps.items()):
+#             global_steps.append({
+#                 "category": category,
+#                 "local_step": local_step,
+#                 "data": data
+#             })
+
+#     # Add global step numbers
+#     for i, step in enumerate(global_steps):
+#         step["global_step"] = i + START_INDEX
+
+#     # Build a lookup table
+#     step_lookup = {step["global_step"]: step for step in global_steps}
+
+
+# @app.route('/learn/<int:step>')
+# def learn(step):
+#     if step not in step_lookup:
+#         abort(404)
+
+#     lesson = step_lookup[step]
+#     category = lesson["category"]
+#     local_step = lesson["local_step"]
+#     data = lesson["data"]
+
+#     # Previous/Next global steps
+#     prev_step = step - 1 if (step - 1) in step_lookup else None
+#     next_step = step + 1 if (step + 1) in step_lookup else None
+
+#     # Determine which template to use based on local step
+#     if local_step == 0:
+#         template = 'title.html'
+#         context = data
+#     elif local_step == 1:
+#         template = 'uses.html'
+#         context = {'uses': data['uses']}
+#     elif local_step == 2:
+#         template = 'substitutes.html'
+#         context = {'substitutes': data['susbtitutes']}
+#     elif local_step == 3:
+#         template = 'mcq.html'
+#         context = {'mcq': data['mc-q']}
+#     elif local_step == 4:
+#         template = 'dragdrop.html'
+#         context = {'dragdrop': data['drag-drop']}
+#     else:
+#         abort(404)
+
+#     return render_template(template,
+#                            step=step,
+#                            category=category,
+#                            prev_step=prev_step,
+#                            next_step=next_step,
+#                            **context)
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
