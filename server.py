@@ -37,59 +37,78 @@ def egg_swap():
 # Learning route
 @app.route('/learn/1', methods=['GET', 'POST'])
 def learn_1():
+    # Render the specific template for /learn/1
     return render_template('learn.html')
 
-@app.route('/learn/2')
+@app.route('/learn/2', methods=['GET', 'POST'])
 def learn_2():
+    # Render the specific template for /learn/2
     return render_template('learn_2.html')
 
-@app.route('/learn/eggs')
-def learn_eggs():
-    return render_template(
-        'learn_template.html',
-        title="EGGS!",
-        uses=[
-            {"text": "Binding", "link": "#"},
-            {"text": "Leavening", "link": "#"},
-            {"text": "Moisture", "link": None},
-            {"text": "Richness", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/eggs_mixing.jpg",
-        back_link="/learn/2"
-    )
+@app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
+def learn_lesson(lesson_num):
+    lessons = {
+        3: {
+            "title": "EGGS!",
+            "uses": [
+                {"text": "Binding", "link": "#"},
+                {"text": "Leavening", "link": "#"},
+                {"text": "Moisture", "link": None},
+                {"text": "Richness", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/4"
+        },
+        4: {
+            "title": "Binding",
+            "note": "Definition: The process of holding ingredients together to maintain structure and prevent crumbling",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/3",
+            "next_link": "/learn/5"
+        },
+        15: {
+            "title": "DAIRY!",
+            "uses": [
+                {"text": "Creaminess", "link": None},
+                {"text": "Moisture", "link": None},
+                {"text": "Flavor", "link": None},
+                {"text": "Richness", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/dairy.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/16"
+        },
+        21: {
+            "title": "GLUTEN!",
+            "uses": [
+                {"text": "Structure", "link": None},
+                {"text": "Elasticity", "link": "#"},
+                {"text": "Chewiness", "link": None},
+                {"text": "Binding", "link": None},
+            ],
+            "note": "click on the word for a definition!",
+            "image": "/static/images/flour.jpg",
+            "back_link": "/learn/2",
+            "next_link": "/learn/22"
+        }
+    }
 
-@app.route('/learn/dairy')
-def learn_dairy():
-    return render_template(
-        'learn_template.html',
-        title="DAIRY!",
-        uses=[
-            {"text": "Creaminess", "link": "#"},
-            {"text": "Moisture", "link": "#"},
-            {"text": "Flavor", "link": None},
-            {"text": "Richness", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/dairy.jpg",
-        back_link="/learn/2"
-    )
-
-@app.route('/learn/gluten')
-def learn_gluten():
-    return render_template(
-        'learn_template.html',
-        title="GLUTEN!",
-        uses=[
-            {"text": "Structure", "link": "#"},
-            {"text": "Elasticity", "link": "#"},
-            {"text": "Chewiness", "link": None},
-            {"text": "Binding", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/gluten.jpg",
-        back_link="/learn/2"
-    )
+    # Check if the lesson exists
+    if lesson_num in lessons:
+        return render_template(
+            'learn_template.html',
+            title=lessons[lesson_num]["title"],
+            uses=lessons[lesson_num]["uses"],
+            note=lessons[lesson_num]["note"],
+            image=lessons[lesson_num]["image"],
+            back_link=lessons[lesson_num]["back_link"]
+        )
+    else:
+        # Handle invalid lesson numbers
+        return "Lesson not found", 404
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
