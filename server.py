@@ -11,10 +11,6 @@ def home():
     # session.clear()
     return render_template('index.html')
 
-@app.route('/three-tab')
-def threetab():
-    # session.clear()
-    return render_template('three-tab.html')
 @app.route('/mc-choice')
 def mcchoice():
     # session.clear()
@@ -23,7 +19,7 @@ def mcchoice():
 def dragdrop():
     # session.clear()
     return render_template('drag-drop.html')
-@app.route('/egg-swap')
+@app.route('/learn/7')
 def egg_swap():
     return render_template('egg-swap.html')
 
@@ -51,8 +47,8 @@ def learn_lesson(lesson_num):
         3: {
             "title": "EGGS!",
             "uses": [
-                {"text": "Binding", "link": "#"},
-                {"text": "Leavening", "link": "#"},
+                {"text": "Binding", "link": "/learn/4"},
+                {"text": "Leavening", "link": "/learn/5"},
                 {"text": "Moisture", "link": None},
                 {"text": "Richness", "link": None},
             ],
@@ -68,6 +64,38 @@ def learn_lesson(lesson_num):
             "back_link": "/learn/3",
             "next_link": "/learn/5"
         },
+        5: {
+            "title": "Leavening",
+            "note": "Definition: The process of incorporating air into a batter or dough to help it rise and become light and fluffy.",
+            "image": "/static/images/eggs_mixing.jpg",
+            "back_link": "/learn/3",
+            "next_link": "/learn/6"
+        },
+        6: {
+            "title": "Egg Substitutes Overview",
+            "substitutes": [
+                {
+                    "name": "Banana",
+                    "works_best": "Brownies, pancakes!",
+                    "why_it_works": "Adds sweetness + moisture",
+                    "color": "#f4d03f" 
+                },
+                {
+                    "name": "Flax Seeds",
+                    "works_best": "Cookies, muffins!",
+                    "why_it_works": "Great binder with its gel-like texture!",
+                    "color": "#5dade2"  
+                },
+                {
+                    "name": "Applesauce",
+                    "works_best": "Cakes, muffins!",
+                    "why_it_works": "Neutral, light texture, and adds moisture!",
+                    "color": "#a569bd"  
+                }
+            ],
+            "back_link": "/learn/5",
+            "next_link": "/learn/7"
+        },
         15: {
             "title": "DAIRY!",
             "uses": [
@@ -80,6 +108,31 @@ def learn_lesson(lesson_num):
             "image": "/static/images/dairy.jpg",
             "back_link": "/learn/2",
             "next_link": "/learn/16"
+        },
+        16: {
+            "title": "Dairy Substitutes Overview",
+            "substitutes": [
+                {
+                    "name": "Milk -> Non-Dairy Milk",
+                    "adds": "Creaminess, Moisture!",
+                    "why_it_works": "Plant milks mimic texture and liquid content of dairy",
+                    "color": "#f4d03f" 
+                },
+                {
+                    "name": "Flax Seeds",
+                    "adds": "Richness, fat",
+                    "why_it_works": "Fats provide tenderness and mouthfeel",
+                    "color": "#5dade2"  
+                },
+                {
+                    "name": "Applesauce",
+                    "adds": "Acidity, rise!",
+                    "why_it_works": "Acid reacts with baking soda to create leavening",
+                    "color": "#a569bd"  
+                }
+            ],
+            "back_link": "/learn/15",
+            "next_link": "/learn/17"
         },
         21: {
             "title": "GLUTEN!",
@@ -98,17 +151,31 @@ def learn_lesson(lesson_num):
 
     # Check if the lesson exists
     if lesson_num in lessons:
+        lesson = lessons[lesson_num]
+
+        # Render `substitutes.html` if the lesson has substitutes
+        if "substitutes" in lesson:
+            return render_template(
+                'substitutes.html',
+                title=lesson["title"],
+                substitutes=lesson["substitutes"],
+                back_link=lesson.get("back_link"),
+                next_link=lesson.get("next_link")
+            )
+
+        # Render `learn_template.html` for other lessons
         return render_template(
             'learn_template.html',
-            title=lessons[lesson_num]["title"],
-            uses=lessons[lesson_num]["uses"],
-            note=lessons[lesson_num]["note"],
-            image=lessons[lesson_num]["image"],
-            back_link=lessons[lesson_num]["back_link"]
+            title=lesson["title"],
+            uses=lesson.get("uses", []),  # Default to an empty list if `uses` is not present
+            note=lesson.get("note", ""),
+            image=lesson.get("image", ""),
+            back_link=lesson.get("back_link"),
+            next_link=lesson.get("next_link")
         )
-    else:
-        # Handle invalid lesson numbers
-        return "Lesson not found", 404
+
+    # Handle invalid lesson numbers
+    return "Lesson not found", 404
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])

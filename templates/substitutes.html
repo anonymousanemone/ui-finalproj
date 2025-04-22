@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="learn-background text-center d-flex justify-content-center align-items-center">
+    <div class="substitutes-container">
+        <h1 class="substitutes-title">{{ title }}</h1>
+        <div class="substitutes-grid">
+            {% for substitute in substitutes %}
+            <div class="substitute-card">
+                <h2 class="substitute-title" style="background-color: {{ substitute.color | default('#cccccc') }};">{{ substitute.name }}</h2>
+                {% if substitute.works_best %}
+                <p class="substitute-text"><strong>Works Best In:</strong> {{ substitute.works_best }}</p>
+                {% endif %}
+                {% if substitute.adds %}
+                <p class="substitute-text"><strong>Adds:</strong> {{ substitute.adds }}</p>
+                {% endif %}
+                {% if substitute.why_it_works %}
+                <p class="substitute-text"><strong>Why it Works:</strong> {{ substitute.why_it_works }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <a href="{{ back_link }}" class="btn btn-purple">BACK</a>
+            <a href="{{ next_link }}" class="btn btn-purple">NEXT</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
