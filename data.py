@@ -82,13 +82,13 @@ lessons = {
 }
 
 definitions = {
-    "binding": {
+    "Binding": {
         "definition": "The process of holding ingredients together to maintain structure and prevent crumbling",
     },
-    "leavening": {
+    "Leavening": {
         "definition": "The process of incorporating air into a batter or dough to help it rise and become light and fluffy."
     },
-    "elasticity": {
+    "Elasticity": {
         "definition": "missing definition"
     }
 }

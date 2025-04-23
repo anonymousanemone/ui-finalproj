@@ -29,22 +29,20 @@
 </div>
 <script>
     $(document).ready(function() {
-        // Loop through each category link
         $('.category-link').each(function() {
-        const $link = $(this);
-        const href = $link.attr('href');
-        const $categoryDiv = $link.closest('.category');
-
-        // Use href as a unique key
-        if (localStorage.getItem('visited_' + href)) {
-            $categoryDiv.css('background-color', '#e0ffe0'); // Customize color
-        }
-
-        // Set visited on click
-        $link.on('click', function() {
-            localStorage.setItem('visited_' + href, 'true');
-        });
+            const $link = $(this);
+            const href = $link.attr('href');
+            const $categoryDiv = $link.closest('.category');
+    
+            // Check sessionStorage instead of localStorage
+            if (sessionStorage.getItem('visited_' + href)) {
+                $categoryDiv.addClass('visited');
+            }
+    
+            $link.on('click', function() {
+            sessionStorage.setItem('visited_' + href, 'true');
+            });
         });
     });
-</script>
+  </script>
 {% endblock %}

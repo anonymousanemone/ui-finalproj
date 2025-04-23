@@ -52,6 +52,15 @@ def learn_lesson(lesson_num):
             back_index=lesson_map[index]["back_index"],
             next_index=lesson_map[index]["next_index"])
 
+@app.route('/learn/<string:term>', methods=['GET', 'POST'])
+def get_definition(term):
+    back_index = request.args.get('back_index', default=0, type=int)
+    return render_template("definitions.html", 
+                           term=term,
+                           definition=data.definitions[term]["definition"], 
+                           back_index=back_index, 
+                           general=lesson_map[back_index]["category"])
+
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])

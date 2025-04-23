@@ -112,4 +112,18 @@ body {
     transform: scale(1.03);
   }
   
-  
+  .dropzone {
+    border: 2px dashed #ccc;
+    min-height: 150px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9f9f9;
+  }
+  .draggable-item {
+    padding: 8px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: move;
+    border-radius: 5px;
+  }

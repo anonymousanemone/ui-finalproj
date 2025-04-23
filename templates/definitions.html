@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="water-background text-center d-flex justify-content-center align-items-center">
+    <div class="ingredient-container d-flex">
+        <div class="ingredient-content">
+            <h1 class="notebook-title">{{ term }}</h1>
+            
+            <h2 class="notebook-subtitle">Definition:</h2>
+            <ul class="notebook-list">
+                <li>{{definition}}</li>
+             </ul>
+            <a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
+        </div>
+        <div class="ingredient-image-container">
+            <img src="{{ general.image }}" alt="{{ general.title }}" class="ingredient-image">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
