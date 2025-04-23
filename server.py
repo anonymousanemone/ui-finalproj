@@ -56,12 +56,22 @@ def learn_lesson(lesson_num):
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
 def quiz(question_num):
-    if question_num==1:
+    if question_num == 1:
         return render_template('quiz.html', question_num=question_num)
-    elif question_num==2:
-        return render_template('quiz_2.html')
+    elif question_num == 2:
+        return render_template('quiz_linear.html', question=data.quiz_questions[0])
+    elif question_num == 3:
+        return render_template('quiz_linear.html', question=data.quiz_questions[1])
+    elif question_num == 4:
+        return render_template('quiz_linear.html', question=data.quiz_questions[2])
+    elif question_num == 5:
+        return render_template('quiz_final.html', question=data.final_question)
     else:
-        return render_template('quiz.html')
+        return "Quiz not found", 404
+
+@app.route('/quiz/results')
+def quiz_results():
+    return render_template('quiz_results.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

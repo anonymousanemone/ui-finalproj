@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+
+<div class="quiz-background text-center d-flex justify-content-center align-items-center">
+    <div class="main-box">
+        <div class="header-banner text-center py-3"></div>
+        <h1 class="notebook-title">Quiz Results</h1>
+        
+        <div class="results-container">
+            <h2>Your Score</h2>
+            <p class="score-display">You got <span id="final-score">0</span> out of 7 points!</p>
+            
+            <div class="feedback">
+                <p id="feedback-text"></p>
+            </div>
+            
+            <div class="button-container">
+                <a href="/quiz/1" class="btn btn-purple">Back to Start</a>
+                <a href="/quiz/2" class="btn btn-purple">Try Again</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        let score = parseInt(localStorage.getItem('quiz_score') || 0);
+        $('#final-score').text(score);
+        
+        // Clear the score for next time
+        localStorage.removeItem('quiz_score');
+        
+        // Provide feedback based on score
+        let feedback = '';
+        if (score === 7) {
+            feedback = "Perfect! You're a baking substitution master!";
+        } else if (score >= 5) {
+            feedback = "Great job! You know your substitutions well!";
+        } else if (score >= 3) {
+            feedback = "Good effort! Keep learning about substitutions!";
+        } else {
+            feedback = "Keep practicing! You'll get better with time!";
+        }
+        $('#feedback-text').text(feedback);
+    });
+</script>
+{% endblock %} 
