@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='egg-swap.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='learn_quiz.css') }}">
 
-<div class="egg-swap-container">
+<div class="swap-container">
     <div class="left-panel">
-		<img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg" class="egg-icon">
+      <img src="{{general.icon}}" alt="{{general.title}}" class="icon">
 		<div class="post-it-box">
 			<h1>Drag and Drop to match the function!
 			</h1>
@@ -14,15 +14,15 @@
     </div>
   
     <div class="right-panel">
-        <div id="itemPool" class="dropzone question-bubble">
+        <div id="itemPool" class="dropzone">
 			{% for drag in contents.drag_drop.drags %}
 			<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>
 			{% endfor %}
-        </div>
+    </div>
   
 		<div class="row">
 			{% for drop in contents.drag_drop.drops %}
-			<div class="col">
+			<div class="col-4">
 				<h5>{{drop}}</h5>
 				<div class="dropzone" id="{{drop}}"></div>
 			</div>
@@ -34,12 +34,10 @@
             <button id="retryBtn" class="btn btn-purple" style="display: none;">Try Again</button>
         </div>
 
-        <button id="submitBtn" class="btn btn-purple" style="display: none;">Submit</button>
+        <button id="submitBtn" class="btn btn-purple" disabled>Submit</button>
 	</div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
   $(function () {
     const correctAnswers = {{ contents.drag_drop.correct_drops|tojson }};
@@ -51,9 +49,9 @@
 
     function checkSubmit() {
       if ($('#itemPool .draggable-item').length === 0) {
-        $('#submitBtn').show();
+        $('#submitBtn').prop('disabled', false);
       } else {
-        $('#submitBtn').hide();
+        $('#submitBtn').prop('disabled', true);
       }
     }
 
@@ -91,6 +89,7 @@
         $('#feedback-text').text('Correct! Great job matching the functions!');
         $('#feedback').addClass('correct').removeClass('incorrect').show();
         $('#retryBtn').hide();
+        $('#submitBtn').hide();
       } else {
         $('#feedback-text').text('Not quite right. Try again!');
         $('#feedback').addClass('incorrect').removeClass('correct').show();
@@ -170,6 +169,7 @@
     }
 
     $('#submitBtn').on('click', function () {
+      $(this).hide();
       checkAnswers();
     });
 
@@ -181,34 +181,5 @@
     checkSubmit();
   });
 </script>
-
-<style>
-.feedback-box {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.feedback-box.correct {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.feedback-box.incorrect {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-#submitBtn, #retryBtn {
-  margin-top: 20px;
-  display: block;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
 
 {% endblock %}

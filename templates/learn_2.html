@@ -2,47 +2,78 @@
 {% block content %}
 
 <div class="learn-background text-center d-flex justify-content-center align-items-center">
-    <div class="notebook-container">
-        <h1 class="notebook-title">Pick a Category to Explore:</h1>
-        <div class="category-container">
-            <div class="category">
-                <a href="/learn/{{homes[0]}}" class="category-link">
-                    <img src="/static/images/egg.png" alt="Eggs" class="category-image">
-                </a>
-                <p class="category-text">EGGS!</p>
-            </div>
-            <div class="category">
-                <a href="/learn/{{homes[1]}}" class="category-link">
-                    <img src="/static/images/milk.png" alt="Dairy" class="category-image">
-                </a>
-                <p class="category-text">DAIRY!</p>
-            </div>
-            <div class="category">
-                <a href="/learn/{{homes[2]}}" class="category-link">
-                    <img src="/static/images/gluten.png" alt="Gluten" class="category-image">
-                </a>
-                <p class="category-text">GLUTEN!</p>
-            </div>
-        </div>
-        <a href="/learn/1" class="btn btn-purple">BACK</a>
-    </div>
+	<div class="notebook-container">
+		<h1 class="notebook-title">Pick a Category to Explore:</h1>
+		<div class="category-container">
+			<div class="category">
+				<a href="/learn/{{homes[0]}}" class="category-link">
+					<img src="/static/images/egg.png" alt="Eggs" class="category-image">
+				</a>
+				<p class="category-text">EGGS!</p>
+			</div>
+			<div class="category">
+				<a href="/learn/{{homes[1]}}" class="category-link">
+					<img src="/static/images/milk.png" alt="Dairy" class="category-image">
+				</a>
+				<p class="category-text">DAIRY!</p>
+			</div>
+			<div class="category">
+				<a href="/learn/{{homes[2]}}" class="category-link">
+					<img src="/static/images/gluten.png" alt="Gluten" class="category-image">
+				</a>
+				<p class="category-text">GLUTEN!</p>
+			</div>
+		</div>
+		<div id="buttons-div">
+			<a href="/learn/1" class="btn btn-purple me-3">BACK</a>
+			<a href="/quiz/1" id="next-button" class="btn btn-purple" style="display: none;">QUIZ!</a>
+		</div>
+		
+	</div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('.category-link').each(function() {
-            const $link = $(this);
-            const href = $link.attr('href');
-            const $categoryDiv = $link.closest('.category');
-    
-            // Check sessionStorage instead of localStorage
-            if (sessionStorage.getItem('visited_' + href)) {
-                $categoryDiv.addClass('visited');
-            }
-    
-            $link.on('click', function() {
-            sessionStorage.setItem('visited_' + href, 'true');
-            });
-        });
+	$(document).ready(function() {
+    const $links = $('.category-link');
+
+    function checkAllVisited() {
+      let allVisited = true;
+
+      $links.each(function() {
+        const href = $(this).attr('href');
+        if (!sessionStorage.getItem('visited_' + href)) {
+          allVisited = false;
+        }
+      });
+
+      if (allVisited) {
+        $('#next-button').fadeIn(); // show button when all are visited
+      }
+    }
+
+    // On page load
+    $links.each(function() {
+      const $link = $(this);
+      const href = $link.attr('href');
+      const $categoryDiv = $link.closest('.category');
+
+      if (sessionStorage.getItem('visited_' + href)) {
+        $categoryDiv.addClass('visited');
+      }
     });
+
+    checkAllVisited(); // initial check
+
+    // On click
+    $links.on('click', function() {
+      const $link = $(this);
+      const href = $link.attr('href');
+      const $categoryDiv = $link.closest('.category');
+
+      sessionStorage.setItem('visited_' + href, 'true');
+      $categoryDiv.addClass('visited');
+
+      checkAllVisited(); // check again after marking
+    });
+  });
   </script>
 {% endblock %}

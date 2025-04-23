@@ -2,7 +2,9 @@ template_map = {1:"uses.html", 2:"substitutes.html", 3:"swap_mc.html", 4:"drag_d
 
 lessons = {
     "eggs": {
-        0: {"title": "EGGS", "image": "/static/images/eggs_mixing.jpg",},
+        0: {"title": "EGGS", 
+            "image": "/static/images/eggs_mixing.jpg",
+            "icon": "/static/images/egg.png"},
         1: {"uses": [
             {"text": "Binding", "link": "#"},
             {"text": "Leavening", "link": "#"},
@@ -28,7 +30,9 @@ lessons = {
         }
     },
     "dairy": {
-        0: {"title": "DAIRY", "image": "/static/images/dairy.jpg"},
+        0: {"title": "DAIRY", 
+            "image": "/static/images/dairy.jpg",
+            "icon": "/static/images/milk.png"},
         1: {"uses": [
                 {"text": "Creaminess", "link": None},
                 {"text": "Moisture", "link": None},
@@ -38,7 +42,7 @@ lessons = {
         2: {"substitutes": [
             {"name":"Milk -> Non-Dairy Milk", "adds": "Creaminess, moisture", "why": "Plant milks mimic texture and liquid content of dairy" , "color": "#f4d03f"},
             {"name":"Butter -> Coconut Oil, Vegan Butter", "adds": "Richness, fat", "why": "Fats provide tenderness and mouthfeel" , "color": "#5dade2"},
-            {"name":"Buttermilk -> Non-Dairy Milk + Vinegar/Lemon", "adds": "Richness, fat", "why": "Acid reacts with baking soda to create leavening" , "color": "#a569bd"} ]
+            {"name":"Buttermilk -> Non-Dairy Milk + Vinegar or Lemon", "adds": "Richness, fat", "why": "Acid reacts with baking soda to create leavening" , "color": "#a569bd"} ]
         },
         3: {"mc_q": {
             "swap": "Milk Swap!", 
@@ -48,13 +52,15 @@ lessons = {
             "explanation": "Oat is best! Both Soy and Tree-nuts are very common allergies!" }
         },
         4: {"drag_drop": {
-            "drags": ["Non-Dairy Milk", "Coconut Oil", "Vinegar/Lemon"],
+            "drags": ["Non-Dairy Milk", "Coconut Oil", "Vinegar or Lemon"],
             "drops": ["Moisture", "Richness", "Leavening"],
             "correct_drops": ["Moisture", "Richness", "Leavening"]}
         }
     },
     "gluten": {
-        0: {"title": "GLUTEN", "image": "/static/images/flour.jpg"},
+        0: {"title": "GLUTEN",
+            "image": "/static/images/flour.jpg",
+            "icon": "/static/images/gluten.png"},
         1: {"uses": [
                 {"text": "Structure", "link": None},
                 {"text": "Elasticity", "link": "#"},
@@ -92,113 +98,6 @@ definitions = {
         "definition": "missing definition"
     }
 }
-
-def learn_lesson(lesson_num):
-    lessons = {
-        3: {
-            "title": "EGGS!",
-            "uses": [
-                {"text": "Binding", "link": "/learn/4"},
-                {"text": "Leavening", "link": "/learn/5"},
-                {"text": "Moisture", "link": None},
-                {"text": "Richness", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/eggs_mixing.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/4"
-        },
-        4: {
-            "title": "Binding",
-            "note": "Definition: The process of holding ingredients together to maintain structure and prevent crumbling",
-            "image": "/static/images/eggs_mixing.jpg",
-            "back_link": "/learn/3",
-            "next_link": "/learn/5"
-        },
-        5: {
-            "title": "Leavening",
-            "note": "Definition: The process of incorporating air into a batter or dough to help it rise and become light and fluffy.",
-            "image": "/static/images/eggs_mixing.jpg",
-            "back_link": "/learn/3",
-            "next_link": "/learn/6"
-        },
-        6: {
-            "title": "Egg Substitutes Overview",
-            "substitutes": [
-                {
-                    "name": "Banana",
-                    "works_best": "Brownies, pancakes!",
-                    "why_it_works": "Adds sweetness + moisture",
-                    "color": "#f4d03f" 
-                },
-                {
-                    "name": "Flax Seeds",
-                    "works_best": "Cookies, muffins!",
-                    "why_it_works": "Great binder with its gel-like texture!",
-                    "color": "#5dade2"  
-                },
-                {
-                    "name": "Applesauce",
-                    "works_best": "Cakes, muffins!",
-                    "why_it_works": "Neutral, light texture, and adds moisture!",
-                    "color": "#a569bd"  
-                }
-            ],
-            "back_link": "/learn/5",
-            "next_link": "/learn/7"
-        },
-        15: {
-            "title": "DAIRY!",
-            "uses": [
-                {"text": "Creaminess", "link": None},
-                {"text": "Moisture", "link": None},
-                {"text": "Flavor", "link": None},
-                {"text": "Richness", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/dairy.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/16"
-        },
-        16: {
-            "title": "Dairy Substitutes Overview",
-            "substitutes": [
-                {
-                    "name": "Milk -> Non-Dairy Milk",
-                    "adds": "Creaminess, Moisture!",
-                    "why_it_works": "Plant milks mimic texture and liquid content of dairy",
-                    "color": "#f4d03f" 
-                },
-                {
-                    "name": "Flax Seeds",
-                    "adds": "Richness, fat",
-                    "why_it_works": "Fats provide tenderness and mouthfeel",
-                    "color": "#5dade2"  
-                },
-                {
-                    "name": "Applesauce",
-                    "adds": "Acidity, rise!",
-                    "why_it_works": "Acid reacts with baking soda to create leavening",
-                    "color": "#a569bd"  
-                }
-            ],
-            "back_link": "/learn/15",
-            "next_link": "/learn/17"
-        },
-        21: {
-            "title": "GLUTEN!",
-            "uses": [
-                {"text": "Structure", "link": None},
-                {"text": "Elasticity", "link": "#"},
-                {"text": "Chewiness", "link": None},
-                {"text": "Binding", "link": None},
-            ],
-            "note": "click on the word for a definition!",
-            "image": "/static/images/flour.jpg",
-            "back_link": "/learn/2",
-            "next_link": "/learn/22"
-        }
-    }
 
 quiz_questions = [
     {

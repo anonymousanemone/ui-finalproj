@@ -50,7 +50,7 @@ body {
 }
 
 .btn-purple {
-    width: 150px;
+    /* width: 150px; */
     background-color: #c3a7dd;
     color: #523969;
     border: 3px solid #523969;
@@ -75,7 +75,7 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
- 
+
 .banner-text {
     font-size: 1.25rem;
     color: white;
