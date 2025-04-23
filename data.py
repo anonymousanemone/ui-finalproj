@@ -42,7 +42,7 @@ lessons = {
         },
         3: {"mc_q": {
             "swap": "Milk Swap!", 
-            "question": "Quick: You want to make muffins to bring into class, but you don’t know if there are any allergies! Which Dairy-Free swap is best?",
+            "question": "Quick: You want to make muffins to bring into class, but you don't know if there are any allergies! Which Dairy-Free swap is best?",
             "answers": ["Oat Milk", "Soy Milk", "Almond Milk"],
             "correct": "Oat Milk",
             "explanation": "Oat is best! Both Soy and Tree-nuts are very common allergies!" }
@@ -199,3 +199,52 @@ def learn_lesson(lesson_num):
             "next_link": "/learn/22"
         }
     }
+
+quiz_questions = [
+    {
+        "category": "Eggs",
+        "question": "What can you use as an egg substitute in baking?",
+        "options": ["Banana", "Apple Sauce", "Both A and B", "None of the above"],
+        "correct": 2,
+        "next": 3,
+        "correct_explanation": "Great job! Both bananas and applesauce can be used as egg substitutes. Bananas add moisture and binding, while applesauce provides moisture and helps with leavening.",
+        "incorrect_explanation": "Not quite! Both bananas and applesauce can be used as egg substitutes. Bananas add moisture and binding, while applesauce provides moisture and helps with leavening."
+    },
+    {
+        "category": "Dairy",
+        "question": "What can you use instead of milk in recipes?",
+        "options": ["Almond milk", "Soy milk", "Oat milk", "All of the above"],
+        "correct": 3,
+        "next": 4,
+        "correct_explanation": "Perfect! All of these plant-based milks can be used as dairy substitutes. They each bring their own unique flavors and properties to your baking.",
+        "incorrect_explanation": "Actually, all of these plant-based milks can be used as dairy substitutes. Almond milk adds a nutty flavor, soy milk is protein-rich, and oat milk provides a creamy texture."
+    },
+    {
+        "category": "Gluten",
+        "question": "What flour can you use instead of wheat flour?",
+        "options": ["Almond flour", "Coconut flour", "Rice flour", "All of the above"],
+        "correct": 3,
+        "next": 5,
+        "correct_explanation": "Excellent! All of these flours can be used as gluten-free alternatives. Each has its own unique properties: almond flour adds moisture and protein, coconut flour is high in fiber, and rice flour provides a neutral taste.",
+        "incorrect_explanation": "Actually, all of these flours can be used as gluten-free alternatives. Almond flour adds moisture and protein, coconut flour is high in fiber, and rice flour provides a neutral taste."
+    }
+]
+
+final_question = {
+    "title": "Let's Make Cookies!",
+    "instruction": "Select the correct items from the cupboard to make the substitutes that allow all guests to enjoy together!",
+    "ingredients": [
+        {"name": "GF AP Flour", "image": "flour.webp", "correct": True},
+        {"name": "Almond Flour", "image": "almond.webp", "correct": False},
+        {"name": "Bananas", "image": "banana.webp", "correct": True},
+        {"name": "Milk", "image": "milk.png", "correct": False},
+        {"name": "Flax Seeds", "image": "seeds.webp", "correct": True},
+        {"name": "Oat Milk", "image": "milk.png", "correct": True},
+        {"name": "Flour", "image": "gluten.png", "correct": False},
+        {"name": "Vegan Butter", "image": "butter.webp", "correct": True},
+        {"name": "Eggs", "image": "egg.png", "correct": False}
+    ],
+    "correct_explanation": "Perfect! Using GF AP Flour (gluten-free), Bananas (egg substitute), Flax Seeds (binding), Oat Milk (dairy-free), and Vegan Butter makes cookies everyone can enjoy!",
+    "incorrect_explanation": "Not quite! Remember, we need to make cookies that are gluten-free, dairy-free, and egg-free. Try selecting GF AP Flour, Bananas, Flax Seeds, Oat Milk, and Vegan Butter.",
+    "background_image": "/static/images/kitchen.gif"
+}

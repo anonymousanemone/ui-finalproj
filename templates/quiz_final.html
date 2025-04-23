@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+
+<div class="quiz-background text-center">
+    <div class="kitchen-scene">
+        <div class="instruction-box">
+            <h1 class="notebook-title">{{ question.title }}</h1>
+            <p>{{ question.instruction }}</p>
+        </div>
+
+        <div class="cupboard">
+            <div class="ingredients-grid">
+                {% for ingredient in question.ingredients %}
+                <div class="ingredient-item" data-correct="{{ ingredient.correct }}">
+                    <img src="/static/images/{{ ingredient.image }}" alt="{{ ingredient.name }}">
+                    <p class="ingredient-name">{{ ingredient.name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="back-button" class="btn btn-purple me-2">Back</button>
+            <button id="submit-button" class="btn btn-purple">Submit</button>
+        </div>
+
+        <div id="feedback" class="feedback-box" style="display: none;">
+            <p id="feedback-text"></p>
+        </div>
+    </div>
+</div>
+
+<style>
+.kitchen-scene {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.instruction-box {
+    background-color: #ffeeb4;
+    border: 3px solid #d35400;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-width: 600px;
+    position: relative;
+}
+
+.cupboard {
+    background-color: #8b4513;
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    background-image: url('/static/images/shelf.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.ingredient-item {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.ingredient-item:hover {
+    transform: scale(1.05);
+}
+
+.ingredient-item.selected {
+    background-color: rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+}
+
+.ingredient-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 0.25rem;
+}
+
+.ingredient-name {
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.button-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-box {
+    background-color: #fff;
+    border: 3px solid #d35400;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    let hasSubmitted = false;
+
+    $('.ingredient-item').click(function() {
+        $(this).toggleClass('selected');
+    });
+
+    $('#back-button').click(function() {
+        window.location.href = '/quiz/4';
+    });
+
+    $('#submit-button').click(function() {
+        let allCorrect = true;
+        let selectedCount = 0;
+
+        $('.ingredient-item').each(function() {
+            const isSelected = $(this).hasClass('selected');
+            const shouldBeSelected = $(this).data('correct') === 'True';
+            
+            console.log('Ingredient:', $(this).find('.ingredient-name').text());
+            console.log('Is Selected:', isSelected);
+            console.log('Should Be Selected:', shouldBeSelected);
+            console.log('Data Correct Value:', $(this).data('correct'));
+
+            if (isSelected) {
+                selectedCount++;
+                if (!shouldBeSelected) {
+                    allCorrect = false;
+                }
+            } else if (shouldBeSelected) {
+                allCorrect = false;
+            }
+        });
+
+        console.log('All Correct:', allCorrect);
+        console.log('Selected Count:', selectedCount);
+
+        if (selectedCount === 0) {
+            alert('Please select some ingredients!');
+            return;
+        }
+
+        if (allCorrect) {
+            // Show success feedback
+            $('#feedback-text').text("{{ question.correct_explanation }}");
+            $('#feedback').show();
+            $('#submit-button').text('See Results');
+            
+            // Store the answer in localStorage
+            let score = localStorage.getItem('quiz_score') || 0;
+            score = parseInt(score) + 4;  // Give 4 points for getting all ingredients correct
+            localStorage.setItem('quiz_score', score);
+            localStorage.setItem('quiz_complete', 'true');
+
+            // Change button to go to results
+            $('#submit-button').off('click').click(function() {
+                window.location.href = '/quiz/results';
+            });
+        } else {
+            // Show try again feedback
+            $('#feedback-text').text("{{ question.incorrect_explanation }}");
+            $('#feedback').show();
+            
+            // Clear selections
+            $('.ingredient-item').removeClass('selected');
+        }
+    });
+});
+</script>
+{% endblock %} 
