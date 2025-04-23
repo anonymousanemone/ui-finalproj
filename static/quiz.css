@@ -1,0 +1,43 @@
+.main-box {
+    background-color: #f9d27d;
+    color: #683b0b;
+    border: 5px solid #d35400;
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: 10px 10px 0 #a04000;
+    max-width: 750px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    padding-top: 3rem;
+}
+
+.quiz-background {
+    background-image: url("/static/images/kitchen.gif");
+    background-size: 150% cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-banner {
+    background-color: #f39c12;
+    height: 20px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 20px;
+}
+ 
+.banner-text {
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    margin: 0;
+}

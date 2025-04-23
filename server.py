@@ -56,7 +56,12 @@ def learn_lesson(lesson_num):
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])
 def quiz(question_num):
-    return render_template('quiz.html', question_num=question_num)
+    if question_num==1:
+        return render_template('quiz.html', question_num=question_num)
+    elif question_num==2:
+        return render_template('quiz_2.html')
+    else:
+        return render_template('quiz.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
