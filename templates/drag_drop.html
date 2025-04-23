@@ -28,6 +28,13 @@
 			</div>
 			{% endfor %}
 		</div>
+
+        <div id="feedback" class="feedback-box" style="display: none;">
+            <p id="feedback-text"></p>
+            <button id="retryBtn" class="btn btn-purple" style="display: none;">Try Again</button>
+        </div>
+
+        <button id="submitBtn" class="btn btn-purple" style="display: none;">Submit</button>
 	</div>
 </div>
 
@@ -35,16 +42,80 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
   $(function () {
+    const correctAnswers = {{ contents.drag_drop.correct_drops|tojson }};
+    const dragItems = {{ contents.drag_drop.drags|tojson }};
+    let currentAnswers = {};
+
+    console.log('Correct Answers:', correctAnswers);
+    console.log('Drag Items:', dragItems);
+
     function checkSubmit() {
       if ($('#itemPool .draggable-item').length === 0) {
-        $('#submitBtn').prop('disabled', false);
+        $('#submitBtn').show();
       } else {
-        $('#submitBtn').prop('disabled', true);
+        $('#submitBtn').hide();
       }
     }
 
     function getBoxItemCount($box) {
       return $box.children('.draggable-item').length;
+    }
+
+    function checkAnswers() {
+      let allCorrect = true;
+      $('.dropzone').each(function() {
+        const dropId = $(this).attr('id');
+        if (dropId !== 'itemPool') {
+          const item = $(this).find('.draggable-item').data('id');
+          // Only check if there's an item in this drop zone
+          if (item) {
+            const itemIndex = dragItems.indexOf(item);
+            console.log('Checking:', {
+              dropId: dropId,
+              item: item,
+              itemIndex: itemIndex,
+              correctAnswer: correctAnswers[itemIndex]
+            });
+            if (itemIndex === -1 || dropId !== correctAnswers[itemIndex]) {
+              console.log('Incorrect match:', {
+                dropId: dropId,
+                expected: correctAnswers[itemIndex]
+              });
+              allCorrect = false;
+            }
+          }
+        }
+      });
+
+      if (allCorrect) {
+        $('#feedback-text').text('Correct! Great job matching the functions!');
+        $('#feedback').addClass('correct').removeClass('incorrect').show();
+        $('#retryBtn').hide();
+      } else {
+        $('#feedback-text').text('Not quite right. Try again!');
+        $('#feedback').addClass('incorrect').removeClass('correct').show();
+        $('#retryBtn').show();
+      }
+    }
+
+    function resetGame() {
+      $('.dropzone').not('#itemPool').empty();
+      $('#itemPool').empty();
+      {% for drag in contents.drag_drop.drags %}
+      $('#itemPool').append(`<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>`);
+      {% endfor %}
+      $('.draggable-item').draggable({
+        revert: "invalid",
+        helper: "clone",
+        start: function (event, ui) {
+          $(this).css('opacity', '0.5');
+        },
+        stop: function (event, ui) {
+          $(this).css('opacity', '1');
+        }
+      });
+      $('#feedback').hide();
+      checkSubmit();
     }
 
     $(".draggable-item").draggable({
@@ -99,9 +170,45 @@
     }
 
     $('#submitBtn').on('click', function () {
-      alert("Submitted!");
+      checkAnswers();
     });
+
+    $('#retryBtn').on('click', function () {
+      resetGame();
+    });
+
+    // Initial setup
+    checkSubmit();
   });
 </script>
+
+<style>
+.feedback-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.feedback-box.correct {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.feedback-box.incorrect {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+#submitBtn, #retryBtn {
+  margin-top: 20px;
+  display: block;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 
 {% endblock %}

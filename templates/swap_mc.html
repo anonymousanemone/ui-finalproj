@@ -19,9 +19,120 @@
     </div>
     <div class="response-options">
       {% for a in contents.mc_q.answers %}
-      <button class="answer-option"> {{ a }} </button>
+      <button class="answer-option" data-answer="{{ a }}"> {{ a }} </button>
       {% endfor %}
+    </div>
+
+    <div id="feedback" class="feedback-box" style="display: none;">
+      <p id="feedback-text"></p>
+      <button id="retryBtn" class="btn btn-purple" style="display: none;">Try Again</button>
     </div>
   </div>
 </div>
+
+<script>
+  $(function() {
+    const correctAnswer = "{{ contents.mc_q.correct }}";
+    const explanation = "{{ contents.mc_q.explanation }}";
+    let hasAnswered = false;
+
+    $('.answer-option').on('click', function() {
+      if (hasAnswered) return;
+      
+      const selectedAnswer = $(this).data('answer');
+      hasAnswered = true;
+
+      // Disable all buttons
+      $('.answer-option').prop('disabled', true);
+
+      if (selectedAnswer === correctAnswer) {
+        $(this).addClass('correct');
+        $('#feedback-text').text(explanation);
+        $('#feedback').addClass('correct').removeClass('incorrect').show();
+      } else {
+        $(this).addClass('incorrect');
+        $('.answer-option').each(function() {
+          if ($(this).data('answer') === correctAnswer) {
+            $(this).addClass('correct');
+          }
+        });
+        $('#feedback-text').text(explanation);
+        $('#feedback').addClass('incorrect').removeClass('correct').show();
+        $('#retryBtn').show();
+      }
+    });
+
+    $('#retryBtn').on('click', function() {
+      // Reset the game
+      $('.answer-option').prop('disabled', false).removeClass('correct incorrect');
+      $('#feedback').hide();
+      hasAnswered = false;
+    });
+  });
+</script>
+
+<style>
+.feedback-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.feedback-box.correct {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.feedback-box.incorrect {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.answer-option {
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  border: 2px solid #6f42c1;
+  border-radius: 8px;
+  background-color: white;
+  color: #6f42c1;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.answer-option:hover:not(:disabled) {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.answer-option.correct {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.answer-option.incorrect {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.answer-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+#retryBtn {
+  margin-top: 20px;
+  display: block;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 {% endblock %}
