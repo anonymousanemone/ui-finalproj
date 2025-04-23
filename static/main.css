@@ -130,11 +130,17 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 2rem;
+    margin: 1rem 0rem;
 }
 
 .category {
     text-align: center;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+}
+
+.category.visited {
+    background-color: #f9d27d;
 }
 
 .category-text {
@@ -142,7 +148,7 @@ body {
     font-size: 1.5rem;
     color: #683b0b;
     color: #683b0b;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0rem 0rem 0rem;
 }
 
 .category-image {

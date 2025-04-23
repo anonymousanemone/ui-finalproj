@@ -4,7 +4,7 @@
 <div class="water-background text-center d-flex justify-content-center align-items-center">
     <div class="ingredient-container d-flex">
         <div class="ingredient-content">
-            <h1 class="notebook-title">{{ general.title }}</h1>
+            <h1 class="notebook-title">{{ general.title }}!</h1>
             
             {% if contents.uses %}
             <h2 class="notebook-subtitle">Uses:</h2>
@@ -12,7 +12,7 @@
                 {% for use in contents.uses %}
                 <li>
                     {% if use.link %}
-                    <a href="{{ use.link }}" class="notebook-link">{{ use.text }}</a>
+                    <a href="{{ url_for('get_definition', term=use.text, back_index=next_index-1) }}" class="notebook-link">{{ use.text }}</a>
                     {% else %}
                     {{ use.text }}
                     {% endif %}

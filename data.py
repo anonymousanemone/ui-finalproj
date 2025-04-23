@@ -2,7 +2,7 @@ template_map = {1:"uses.html", 2:"substitutes.html", 3:"swap_mc.html", 4:"drag_d
 
 lessons = {
     "eggs": {
-        0: {"title": "EGGS!", "image": "/static/images/eggs_mixing.jpg",},
+        0: {"title": "EGGS", "image": "/static/images/eggs_mixing.jpg",},
         1: {"uses": [
             {"text": "Binding", "link": "#"},
             {"text": "Leavening", "link": "#"},
@@ -28,7 +28,7 @@ lessons = {
         }
     },
     "dairy": {
-        0: {"title": "DAIRY!", "image": "/static/images/dairy.jpg"},
+        0: {"title": "DAIRY", "image": "/static/images/dairy.jpg"},
         1: {"uses": [
                 {"text": "Creaminess", "link": None},
                 {"text": "Moisture", "link": None},
@@ -54,7 +54,7 @@ lessons = {
         }
     },
     "gluten": {
-        0: {"title": "GLUTEN!", "image": "/static/images/flour.jpg"},
+        0: {"title": "GLUTEN", "image": "/static/images/flour.jpg"},
         1: {"uses": [
                 {"text": "Structure", "link": None},
                 {"text": "Elasticity", "link": "#"},
@@ -82,13 +82,13 @@ lessons = {
 }
 
 definitions = {
-    "binding": {
+    "Binding": {
         "definition": "The process of holding ingredients together to maintain structure and prevent crumbling",
     },
-    "leavening": {
+    "Leavening": {
         "definition": "The process of incorporating air into a batter or dough to help it rise and become light and fluffy."
     },
-    "elasticity": {
+    "Elasticity": {
         "definition": "missing definition"
     }
 }

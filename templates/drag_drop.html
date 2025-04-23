@@ -1,115 +1,107 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container py-5">
-<h3 class="mb-4">Drap and Drop to match the functionality!</h3>
+<link rel="stylesheet" href="{{ url_for('static', filename='egg-swap.css') }}">
 
-    <div class="mb-4">
-      <div class="drop-zone" id="draggables" data-container="true">
-        {% for drag in contents.drag_drop.drags %}
-        <div class="draggable-item">{{drag}}</div>
-        {% endfor %}
-      </div>
+<div class="egg-swap-container">
+    <div class="left-panel">
+		<img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg" class="egg-icon">
+		<div class="post-it-box">
+			<h1>Drag and Drop to match the function!
+			</h1>
+      	</div>
+		<a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
+		<a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
     </div>
-
-    <div class="row">
-      {% for drop in contents.drag_drop.drops %}
-      <div class="col-md-4">
-        <label>{{drop}}</label>
-        <div class="drop-zone"></div>
-      </div>
-      {% endfor %}
-    </div>
-
-    <button class="btn btn-primary mt-4" id="submitBtn" disabled>Submit</button>
-    <div id="result" class="mt-3 fw-bold"></div>
+  
+    <div class="right-panel">
+        <div id="itemPool" class="dropzone question-bubble">
+			{% for drag in contents.drag_drop.drags %}
+			<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>
+			{% endfor %}
+        </div>
+  
+		<div class="row">
+			{% for drop in contents.drag_drop.drops %}
+			<div class="col">
+				<h5>{{drop}}</h5>
+				<div class="dropzone" id="{{drop}}"></div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
-<a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
-<a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
 
-
-  <script>
-    const correctAnswers = {
-      France: "Paris",
-      Germany: "Berlin",
-      Italy: "Rome"
-    };
-
-    function updateSubmitButton() {
-      let allFilled = true;
-      $(".drop-zone").each(function () {
-        if (!$(this).data("country")) return; // Skip original box
-        if ($(this).find(".draggable-item").length !== 1) {
-          allFilled = false;
-        }
-      });
-      $("#submitBtn").prop("disabled", !allFilled);
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+  $(function () {
+    function checkSubmit() {
+      if ($('#itemPool .draggable-item').length === 0) {
+        $('#submitBtn').prop('disabled', false);
+      } else {
+        $('#submitBtn').prop('disabled', true);
+      }
     }
 
-    $(function () {
-      $(".draggable-item").draggable({
+    function getBoxItemCount($box) {
+      return $box.children('.draggable-item').length;
+    }
+
+    $(".draggable-item").draggable({
+      revert: "invalid",
+      helper: "clone",
+      start: function (event, ui) {
+        $(this).css('opacity', '0.5');
+      },
+      stop: function (event, ui) {
+        $(this).css('opacity', '1');
+      }
+    });
+
+    $(".dropzone").droppable({
+      accept: ".draggable-item",
+      drop: function (event, ui) {
+        const $dropped = $(ui.draggable);
+        const $clone = $dropped.clone();
+        const $target = $(this);
+
+        // Check if dropping back into original pool
+        if ($target.attr('id') === 'itemPool') {
+          $dropped.detach().appendTo($target);
+        } else {
+          if (getBoxItemCount($target) >= 2) {
+            return;
+          }
+          // Remove original if moved from pool or another box
+          const original = $('[data-id="' + $dropped.data('id') + '"]');
+          original.remove();
+
+          $clone.removeClass('ui-draggable-dragging');
+          $clone.appendTo($target);
+          makeDraggable($clone);
+        }
+
+        checkSubmit();
+      }
+    });
+
+    function makeDraggable($item) {
+      $item.draggable({
         revert: "invalid",
         helper: "clone",
         start: function (event, ui) {
-          // If dragging from a drop-zone, remove the original so it can be moved
-          if (!$(this).parent().is("#draggables")) {
-            $(this).remove();
-            updateSubmitButton();
-          }
+          $(this).css('opacity', '0.5');
+        },
+        stop: function (event, ui) {
+          $(this).css('opacity', '1');
         }
       });
+    }
 
-      $(".drop-zone").droppable({
-        accept: ".draggable-item",
-        drop: function (event, ui) {
-          if ($(this).find(".draggable-item").length === 0) {
-            const item = ui.draggable.clone().draggable({
-              revert: "invalid",
-              helper: "clone",
-              start: function () {
-                $(this).remove();
-                updateSubmitButton();
-              }
-            });
-            $(this).append(item);
-            updateSubmitButton();
-          }
-        }
-      });
-
-      $("#submitBtn").click(function () {
-        let allCorrect = true;
-
-        $(".drop-zone").each(function () {
-          const country = $(this).data("country");
-          if (!country) return; // Skip the original draggables container
-
-          const droppedItem = $(this).find(".draggable-item");
-          const userAnswer = droppedItem.data("answer");
-
-          $(this).removeClass("matched mismatched");
-
-          if (userAnswer === correctAnswers[country]) {
-            $(this).addClass("matched");
-          } else {
-            allCorrect = false;
-            $(this).addClass("mismatched");
-            $(this).html(`
-              <div class="draggable-item mismatched">${userAnswer}</div>
-              <em class="d-block mt-1">Correct: ${correctAnswers[country]}</em>
-            `);
-          }
-        });
-
-        $("#result")
-          .text(allCorrect ? "All matches correct! 🎉" : "Some matches were incorrect. See above.")
-          .removeClass()
-          .addClass("mt-3 fw-bold")
-          .addClass(allCorrect ? "text-success" : "text-danger");
-      });
+    $('#submitBtn').on('click', function () {
+      alert("Submitted!");
     });
-  </script>
-    <!-- <form method="POST" action="/learn/{{ next_lesson }}">
-        <input type="hidden" name="lesson_num" value="{{ lesson_num }}">
-        <button type="submit" class="btn btn-outline-primary mt-3">Next</button>
-    </form> -->
+  });
+</script>
+
 {% endblock %}
