@@ -1,9 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
 from datetime import datetime
+import data
 
 app = Flask(__name__)
 app.secret_key = 'secret_key_for_session'
+
+# calculating lesson numbers
+START_INDEX = 3
+lesson_map = []
+category_home = []
+
+for category, contents in data.lessons.items():
+    for i in range (1, 5):
+        cur_index = len(lesson_map)+START_INDEX
+        if i==1:
+            category_home.append(cur_index)
+            back_index = 2
+        else:
+            back_index = cur_index-1
+        next_index = 2 if i==4 else cur_index+1
+        lesson_map.append({
+            "category": contents[0],
+            "data": contents[i],
+            "template": data.template_map[i],
+            "back_index": back_index,
+            "next_index": next_index
+        })
 
 # Home route
 @app.route('/')
@@ -11,85 +34,24 @@ def home():
     # session.clear()
     return render_template('index.html')
 
-@app.route('/three-tab')
-def threetab():
-    # session.clear()
-    return render_template('three-tab.html')
-@app.route('/mc-choice')
-def mcchoice():
-    # session.clear()
-    return render_template('mc-choice.html')
-@app.route('/drag-drop')
-def dragdrop():
-    # session.clear()
-    return render_template('drag-drop.html')
-@app.route('/egg-swap')
-def egg_swap():
-    return render_template('egg-swap.html')
-
-# Start learning process
-# @app.route('/start')
-# def start():
-#     session['learning_progress'] = {}
-#     session['quiz_answers'] = {}
-#     return redirect(url_for('learn', lesson_num=1))
-
 # Learning route
-@app.route('/learn/1', methods=['GET', 'POST'])
-def learn_1():
-    return render_template('learn.html')
+@app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
+def learn_lesson(lesson_num):
+    if lesson_num==1:
+        return render_template("learn_1.html")
+    elif lesson_num==2:
+        return render_template("learn_2.html", homes=category_home)
+    else:
+        if lesson_num not in range(START_INDEX, START_INDEX+len(lesson_map)):
+             return "Lesson not found", 404
+        index = lesson_num-START_INDEX
+        return render_template(
+            lesson_map[index]["template"], 
+            general=lesson_map[index]["category"],
+            contents=lesson_map[index]["data"],
+            back_index=lesson_map[index]["back_index"],
+            next_index=lesson_map[index]["next_index"])
 
-@app.route('/learn/2')
-def learn_2():
-    return render_template('learn_2.html')
-
-@app.route('/learn/eggs')
-def learn_eggs():
-    return render_template(
-        'learn_template.html',
-        title="EGGS!",
-        uses=[
-            {"text": "Binding", "link": "#"},
-            {"text": "Leavening", "link": "#"},
-            {"text": "Moisture", "link": None},
-            {"text": "Richness", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/eggs_mixing.jpg",
-        back_link="/learn/2"
-    )
-
-@app.route('/learn/dairy')
-def learn_dairy():
-    return render_template(
-        'learn_template.html',
-        title="DAIRY!",
-        uses=[
-            {"text": "Creaminess", "link": "#"},
-            {"text": "Moisture", "link": "#"},
-            {"text": "Flavor", "link": None},
-            {"text": "Richness", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/dairy.jpg",
-        back_link="/learn/2"
-    )
-
-@app.route('/learn/gluten')
-def learn_gluten():
-    return render_template(
-        'learn_template.html',
-        title="GLUTEN!",
-        uses=[
-            {"text": "Structure", "link": "#"},
-            {"text": "Elasticity", "link": "#"},
-            {"text": "Chewiness", "link": None},
-            {"text": "Binding", "link": None},
-        ],
-        note="click on the word for a definition!",
-        image="/static/images/gluten.jpg",
-        back_link="/learn/2"
-    )
 
 # Quiz route
 @app.route('/quiz/<int:question_num>', methods=['GET', 'POST'])

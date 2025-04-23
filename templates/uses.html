@@ -2,12 +2,14 @@
 {% block content %}
 
 <div class="water-background text-center d-flex justify-content-center align-items-center">
-    <div class="notebook-container d-flex">
-        <div class="notebook-content">
-            <h1 class="notebook-title">{{ title }}</h1>
+    <div class="ingredient-container d-flex">
+        <div class="ingredient-content">
+            <h1 class="notebook-title">{{ general.title }}</h1>
+            
+            {% if contents.uses %}
             <h2 class="notebook-subtitle">Uses:</h2>
             <ul class="notebook-list">
-                {% for use in uses %}
+                {% for use in contents.uses %}
                 <li>
                     {% if use.link %}
                     <a href="{{ use.link }}" class="notebook-link">{{ use.text }}</a>
@@ -17,13 +19,15 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="notebook-note">{{ note }}</p>
+            {% endif %}
+            
+            <a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
+            <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
         </div>
-        <div class="notebook-image-container">
-            <img src="{{ image }}" alt="{{ title }}" class="notebook-image">
+        <div class="ingredient-image-container">
+            <img src="{{ general.image }}" alt="{{ general.title }}" class="ingredient-image">
         </div>
     </div>
-    <a href="{{ back_link }}" class="btn btn-purple">BACK</a>
 </div>
 
 {% endblock %}

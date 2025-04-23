@@ -1,6 +1,7 @@
 body {
     background: url("/static/images/mountains.jpg") no-repeat center center fixed;
     background-size: cover;
+    background-color: #c3a7dd;
     font-family: 'Silkscreen', sans-serif;
     margin: 0;
     padding: 0;
