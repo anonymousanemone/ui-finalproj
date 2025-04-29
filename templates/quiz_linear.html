@@ -3,67 +3,95 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
 
 <div class="quiz-background text-center d-flex justify-content-center align-items-center">
-    <div class="main-box">
-        <div class="header-banner text-center py-3"></div>
-        <h1 class="notebook-title">{{ question.category }} Question</h1>
-        
-        <div class="question-box mb-4">
-            <h3 class="question-text">{{ question.question }}</h3>
-            <div class="options-container">
-                {% for option in question.options %}
-                <div class="option">
-                    <input type="radio" name="answer" id="option-{{ loop.index }}" value="{{ loop.index0 }}">
-                    <label for="option-{{ loop.index }}">{{ option }}</label>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="main-box">
+                    <div class="header-banner text-right p-3"><div class="p-4">{{num}}</div></div>
+                    <h1 class="notebook-title">{{ question.category }}</h1>
+                    <div class="question-box mb-4">
+                        <h3 class="question-text">{{ question.question }}</h3>
+                        <div class="options-container">
+                            {% for option in question.options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="answer" id="option-{{ loop.index }}" value="{{ loop.index0 }}">
+                                <label class="form-check-label" for="option-{{ loop.index }}">{{ option }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button id="submit-answer" class="btn btn-purple">Submit</button>
+                    </div>
                 </div>
-                {% endfor %}
             </div>
-        </div>
-        
-        <div id="feedback" class="feedback-box mb-4" style="display: none;">
-            <p id="feedback-text"></p>
-        </div>
-        
-        <div class="button-container">
-            <button id="submit-answer" class="btn btn-purple">Submit</button>
+
+            <div class="col-md-3" id="feedback-box" style="display: none;">
+                <div id="feedback" class="feedback-box p-3">
+                    <p id="feedback-text" class="mb-0"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+
 <script>
     $(document).ready(function() {
-        let correctAnswer = parseInt("{{ question.correct }}");
-        let nextQuestion = parseInt("{{ question.next }}");
-        let hasSubmitted = false;
-        
-        $('#submit-answer').click(function() {
-            let selected = $('input[name="answer"]:checked').val();
-            
-            if (selected === undefined) {
-                alert('Please select an answer!');
-                return;
-            }
-            
-            if (!hasSubmitted) {
-                // First click - show feedback
-                hasSubmitted = true;
-                let isCorrect = parseInt(selected) === correctAnswer;
-                let feedbackText = isCorrect ? "{{ question.correct_explanation }}" : "{{ question.incorrect_explanation }}";
-                
-                $('#feedback-text').text(feedbackText);
-                $('#feedback').show();
-                $('#submit-answer').text('Next Question');
-                
-                // Store the answer in localStorage
-                let score = localStorage.getItem('quiz_score') || 0;
-                if (isCorrect) {
-                    score = parseInt(score) + 1;
+    let correctAnswer = parseInt("{{ question.correct }}");
+    let nextQuestion = parseInt("{{ question.next }}");
+    let hasSubmitted = false;
+
+    $('#submit-answer').click(function() {
+        let selected = $('input[name="answer"]:checked').val();
+
+        if (selected === undefined) {
+            alert('Please select an answer!');
+            return;
+        }
+
+        if (!hasSubmitted) {
+            hasSubmitted = true;
+            let isCorrect = parseInt(selected) === correctAnswer;
+            let feedbackText = isCorrect ? "{{ question.correct_explanation }}" : "{{ question.incorrect_explanation }}";
+
+            // Highlight selected and correct answers
+            $('input[name="answer"]').each(function() {
+                let label = $(this).parent(); // Assuming label wraps the input
+                if (parseInt($(this).val()) === correctAnswer) {
+                    label.addClass('correct');
                 }
-                localStorage.setItem('quiz_score', score);
+                if (parseInt($(this).val()) === parseInt(selected)) {
+                    if (!isCorrect) {
+                        label.addClass('wrong');
+                    }
+                }
+            });
+
+            // Update feedback
+            $('#feedback-text').text(feedbackText);
+            $('#feedback-box').show();
+            if (isCorrect) {
+                $('#feedback').addClass("correct")
             } else {
-                // Second click - move to next question
-                window.location.href = '/quiz/' + nextQuestion;
+                $('#feedback').addClass("wrong")
             }
-        });
+
+            $('#submit-answer').text('Next Question');
+
+            // Store the answer in localStorage
+            let score = localStorage.getItem('quiz_score') || 0;
+            if (isCorrect) {
+                score = parseInt(score) + 1;
+            }
+            localStorage.setItem('quiz_score', score);
+        } else {
+            // Second click - move to next question
+            window.location.href = '/quiz/' + nextQuestion;
+        }
     });
+});
+
 </script>
 {% endblock %} 

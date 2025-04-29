@@ -3,13 +3,12 @@
     color: #683b0b;
     border: 5px solid #d35400;
     border-radius: 18px;
-    padding: 2.5rem;
+    padding: 2rem;
     box-shadow: 10px 10px 0 #a04000;
-    max-width: 750px;
+    max-width: 100%; /* FULL width inside column */
     text-align: center;
-    display: inline-block;
     position: relative;
-    padding-top: 3rem;
+    margin-bottom: 2rem; /* spacing from feedback on small screens */
 }
 
 .quiz-background {
@@ -25,14 +24,9 @@
 
 .header-banner {
     background-color: #f39c12;
-    height: 20px;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-bottom: 20px;
 }
  
 .banner-text {
@@ -66,13 +60,18 @@
 .option {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     padding: 0.5rem;
     border-radius: 8px;
     transition: background-color 0.2s;
 }
 
-.option:hover {
+.form-check {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.form-check:hover {
     background-color: #f0f0f0;
 }
 
@@ -108,4 +107,82 @@
 #score {
     font-weight: bold;
     color: #d35400;
+}
+
+.correct {
+    border: 3px solid green;
+    border-radius: 10px;
+    background-color: #e6ffe6;
+}
+
+.wrong {
+    border: 3px solid red;
+    border-radius: 10px;
+    background-color: #ffe6e6;
+}
+
+.kitchen-scene {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.instruction-box {
+    background-color: #ffeeb4;
+    border: 3px solid #d35400;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-width: 600px;
+    position: relative;
+}
+
+.cupboard {
+    position: relative;
+    overflow: hidden;
+}
+
+.cupboard img {
+    width: 100%;
+    height: auto; /* Prevents warping */
+    display: block;
+  }
+
+.content-over-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ingredient-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ingredient-item:hover {
+    transform: scale(1.05);
+}
+
+.ingredient-item.selected {
+    background-color: rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+}
+
+.ingredient-item img {
+    object-fit: contain;
+    /* margin-bottom: 0.25rem; */
+} 
+
+.ingredient-name {
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.button-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

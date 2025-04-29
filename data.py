@@ -140,7 +140,7 @@ final_question = {
         {"name": "Flax Seeds", "image": "seeds.webp", "correct": True},
         {"name": "Oat Milk", "image": "milk.png", "correct": True},
         {"name": "Flour", "image": "gluten.png", "correct": False},
-        {"name": "Vegan Butter", "image": "butter.webp", "correct": True},
+        {"name": "Vegan Butter", "image": "butter.png", "correct": True},
         {"name": "Eggs", "image": "egg.png", "correct": False}
     ],
     "correct_explanation": "Perfect! Using GF AP Flour (gluten-free), Bananas (egg substitute), Flax Seeds (binding), Oat Milk (dairy-free), and Vegan Butter makes cookies everyone can enjoy!",

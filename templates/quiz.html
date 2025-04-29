@@ -3,14 +3,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
 
 <div class="quiz-background">
-    <div class="main-box">
-        <div class="header-banner text-center py-3"></div>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="main-box">
+                    <div class="header-banner text-center py-3"></div>
 
-        <h1 class="display-5 fw-bold">Final Quiz</h1>
-        <p class="lead">Become an Ultimate Baking Substitution Master!</p>
-        <a href="/learn/2" class="btn btn-lg btn-purple mt-3 me-3">BACK</a>
-        <a href="/quiz/2" class="btn btn-lg btn-purple mt-3">PLAY</a>
-
+                    <h1 class="display-5 fw-bold pt-4">Final Quiz</h1>
+                    <p class="lead">Become an Ultimate Baking Substitution Master!</p>
+                    <a href="/learn/2" class="btn btn-lg btn-purple mt-3 me-3">BACK</a>
+                    <a href="/quiz/2" class="btn btn-lg btn-purple mt-3">PLAY</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
