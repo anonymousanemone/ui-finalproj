@@ -4,6 +4,10 @@
 <div class="learn-background text-center d-flex justify-content-center align-items-center">
 	<div class="notebook-container">
 		<h1 class="notebook-title">Pick a Category to Explore:</h1>
+    <div class="progress-container">
+      <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+    </div>
+    <p class="progress-text">Lesson {{ back_index + 1 }} of 14 ({{ progress_percentage }}% complete)</p>
 		<div class="category-container">
 			<div class="category">
 				<a href="/learn/{{homes[0]}}" class="category-link">

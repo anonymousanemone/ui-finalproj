@@ -14,6 +14,10 @@
     </div>
   
     <div class="right-panel">
+      <div class="progress-container">
+        <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+      </div>
+      <p class="progress-text">Lesson {{ back_index + 1 }} of 14 ({{ progress_percentage }}% complete)</p>
         <div id="itemPool" class="dropzone">
 			{% for drag in contents.drag_drop.drags %}
 			<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>
