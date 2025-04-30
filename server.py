@@ -35,22 +35,49 @@ def home():
     return render_template('index.html')
 
 # Learning route
+# @app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
+# def learn_lesson(lesson_num):
+#     if lesson_num==1:
+#         return render_template("learn_1.html")
+#     elif lesson_num==2:
+#         return render_template("learn_2.html", homes=category_home)
+#     else:
+#         if lesson_num not in range(START_INDEX, START_INDEX+len(lesson_map)):
+#              return "Lesson not found", 404
+#         index = lesson_num-START_INDEX
+#         return render_template(
+#             lesson_map[index]["template"], 
+#             general=lesson_map[index]["category"],
+#             contents=lesson_map[index]["data"],
+#             back_index=lesson_map[index]["back_index"],
+#             next_index=lesson_map[index]["next_index"])
+
 @app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
 def learn_lesson(lesson_num):
-    if lesson_num==1:
-        return render_template("learn_1.html")
-    elif lesson_num==2:
-        return render_template("learn_2.html", homes=category_home)
+    TOTAL_LESSONS = 14  # Total number of lessons in the course
+
+    if lesson_num == 1:
+        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
+        return render_template("learn_1.html", progress_percentage=progress_percentage, back_index=0)
+    elif lesson_num == 2:
+        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
+        return render_template("learn_2.html", homes=category_home, progress_percentage=progress_percentage, back_index=1)
     else:
-        if lesson_num not in range(START_INDEX, START_INDEX+len(lesson_map)):
-             return "Lesson not found", 404
-        index = lesson_num-START_INDEX
+        if lesson_num not in range(START_INDEX, START_INDEX + len(lesson_map)):
+            return "Lesson not found", 404
+        index = lesson_num - START_INDEX
+
+        # Calculate progress percentage
+        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
+
         return render_template(
-            lesson_map[index]["template"], 
+            lesson_map[index]["template"],
             general=lesson_map[index]["category"],
             contents=lesson_map[index]["data"],
-            back_index=lesson_map[index]["back_index"],
-            next_index=lesson_map[index]["next_index"])
+            back_index=lesson_num-1,
+            next_index=lesson_map[index]["next_index"],
+            progress_percentage=progress_percentage  # Pass progress to the template
+        )
 
 @app.route('/learn/<string:term>', methods=['GET', 'POST'])
 def get_definition(term):
