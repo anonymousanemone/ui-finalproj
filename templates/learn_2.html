@@ -4,6 +4,10 @@
 <div class="learn-background text-center d-flex justify-content-center align-items-center">
 	<div class="notebook-container">
 		<h1 class="notebook-title">Pick a Category to Explore:</h1>
+    <div class="progress-container">
+      <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+    </div>
+    <p class="progress-text">Lesson {{ back_index + 1 }} of 14 ({{ progress_percentage }}% complete)</p>
 		<div class="category-container">
 			<div class="category">
 				<a href="/learn/{{homes[0]}}" class="category-link">
@@ -31,7 +35,7 @@
 		
 	</div>
 </div>
-<script>
+<!-- <script>
 	$(document).ready(function() {
     const $links = $('.category-link');
 
@@ -75,5 +79,74 @@
       checkAllVisited(); // check again after marking
     });
   });
+  </script> -->
+  <script>
+    $(document).ready(function () {
+      const $links = $('.category-link');
+      const TOTAL_LESSONS = 14; // Total number of lessons
+      const BASE_PROGRESS = 2; // Progress starts at lesson 2
+      const CATEGORY_PROGRESS = {
+        '/learn/eggs': 6, // Progress when "Eggs" is visited
+        '/learn/dairy': 10, // Progress when "Dairy" is visited
+        '/learn/gluten': 14, // Progress when "Gluten" is visited
+      };
+  
+      function calculateProgress() {
+        let highestProgress = BASE_PROGRESS;
+  
+        $links.each(function () {
+          const href = $(this).attr('href');
+          if (localStorage.getItem('visited_' + href)) {
+            highestProgress = Math.max(highestProgress, CATEGORY_PROGRESS[href] || BASE_PROGRESS);
+          }
+        });
+  
+        const progressPercentage = Math.round((highestProgress / TOTAL_LESSONS) * 100);
+        $('.progress-bar').css('width', progressPercentage + '%');
+        $('.progress-text').text(`Lesson ${highestProgress} of ${TOTAL_LESSONS} (${progressPercentage}% complete)`);
+      }
+  
+      function checkAllVisited() {
+        let allVisited = true;
+  
+        $links.each(function () {
+          const href = $(this).attr('href');
+          if (!localStorage.getItem('visited_' + href)) {
+            allVisited = false;
+          }
+        });
+  
+        if (allVisited) {
+          $('#next-button').fadeIn(); // Show button when all are visited
+        }
+      }
+  
+      // On page load
+      $links.each(function () {
+        const $link = $(this);
+        const href = $link.attr('href');
+        const $categoryDiv = $link.closest('.category');
+  
+        if (localStorage.getItem('visited_' + href)) {
+          $categoryDiv.addClass('visited');
+        }
+      });
+  
+      calculateProgress(); // Update progress bar on page load
+      checkAllVisited(); // Initial check
+  
+      // On click
+      $links.on('click', function () {
+        const $link = $(this);
+        const href = $link.attr('href');
+        const $categoryDiv = $link.closest('.category');
+  
+        localStorage.setItem('visited_' + href, 'true');
+        $categoryDiv.addClass('visited');
+  
+        calculateProgress(); // Update progress bar after marking
+        checkAllVisited(); // Check again after marking
+      });
+    });
   </script>
 {% endblock %}
