@@ -4,10 +4,6 @@
 <div class="learn-background text-center d-flex justify-content-center align-items-center">
 	<div class="notebook-container">
 		<h1 class="notebook-title">Pick a Category to Explore:</h1>
-    <div class="progress-container">
-      <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
-    </div>
-    <p class="progress-text">Lesson {{ back_index + 1 }} of 14 ({{ progress_percentage }}% complete)</p>
 		<div class="category-container">
 			<div class="category">
 				<a href="/learn/{{homes[0]}}" class="category-link">
@@ -38,6 +34,35 @@
 <script>
 	$(document).ready(function() {
     const $links = $('.category-link');
+
+    function updateLinkStates() {
+      const eggsVisited = sessionStorage.getItem('visited_/learn/{{homes[0]}}') === 'true';
+      const dairyVisited = sessionStorage.getItem('visited_/learn/{{homes[1]}}') === 'true';
+
+      // Enable or disable Dairy link
+      if (eggsVisited) {
+        $('.category-link[href="/learn/{{homes[1]}}"]').removeClass('disabled').css('pointer-events', 'auto');
+      } else {
+        $('.category-link[href="/learn/{{homes[1]}}"]').addClass('disabled').css('pointer-events', 'none');
+      }
+
+      // Enable or disable Gluten link
+      if (dairyVisited) {
+        $('.category-link[href="/learn/{{homes[2]}}"]').removeClass('disabled').css('pointer-events', 'auto');
+      } else {
+        $('.category-link[href="/learn/{{homes[2]}}"]').addClass('disabled').css('pointer-events', 'none');
+      }
+    }
+
+    // On page load, check progress and update link states
+    updateLinkStates();
+
+    // On click, mark the link as visited and update link states
+    $links.on('click', function () {
+      const href = $(this).attr('href');
+      sessionStorage.setItem('visited_' + href, 'true');
+      updateLinkStates(); // Update link states after marking
+    });
 
     function checkAllVisited() {
       let allVisited = true;

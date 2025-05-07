@@ -294,3 +294,9 @@ body {
     text-align: center;
     margin-top: 0.5rem;
 }
+
+.category-link.disabled {
+    color: gray;
+    pointer-events: none; /* Prevent clicking */
+    opacity: 0.5; /* Make it visually distinct */
+}

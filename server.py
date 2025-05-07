@@ -54,29 +54,30 @@ def home():
 
 @app.route('/learn/<int:lesson_num>', methods=['GET', 'POST'])
 def learn_lesson(lesson_num):
-    TOTAL_LESSONS = 14  # Total number of lessons in the course
+    TOTAL_LESSONS = 12  # Total number of lessons in the course
+    START_INDEX = 3
 
     if lesson_num == 1:
-        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
-        return render_template("learn_1.html", progress_percentage=progress_percentage, back_index=0)
+        return render_template("learn_1.html")
     elif lesson_num == 2:
-        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
-        return render_template("learn_2.html", homes=category_home, progress_percentage=progress_percentage, back_index=1)
+        return render_template("learn_2.html", homes=category_home)
     else:
         if lesson_num not in range(START_INDEX, START_INDEX + len(lesson_map)):
             return "Lesson not found", 404
         index = lesson_num - START_INDEX
 
         # Calculate progress percentage
-        progress_percentage = int((lesson_num / TOTAL_LESSONS) * 100)
+        current_lesson = lesson_num - START_INDEX + 1
+        progress_percentage = int((current_lesson / TOTAL_LESSONS) * 100)
 
         return render_template(
             lesson_map[index]["template"],
             general=lesson_map[index]["category"],
             contents=lesson_map[index]["data"],
-            back_index=lesson_num-1,
+            back_index=lesson_map[index]["back_index"],
             next_index=lesson_map[index]["next_index"],
-            progress_percentage=progress_percentage  # Pass progress to the template
+            progress_percentage=progress_percentage,  # Pass progress to the template
+            current_lesson=current_lesson
         )
 
 @app.route('/learn/<string:term>', methods=['GET', 'POST'])
