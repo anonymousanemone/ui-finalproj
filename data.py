@@ -126,6 +126,70 @@ quiz_questions = [
         "next": 5,
         "correct_explanation": "Excellent! All of these flours can be used as gluten-free alternatives. Each has its own unique properties: almond flour adds moisture and protein, coconut flour is high in fiber, and rice flour provides a neutral taste.",
         "incorrect_explanation": "Actually, all of these flours can be used as gluten-free alternatives. Almond flour adds moisture and protein, coconut flour is high in fiber, and rice flour provides a neutral taste."
+    },
+    {
+        "category": "Eggs",
+        "question": "Which egg substitute is especially good for cookies and muffins due to its binding power?",
+        "options": ["Flax Seeds", "Banana", "Applesauce", "Oat Flour"],
+        "correct": 0,
+        "next": 6,
+        "correct_explanation": "Exactly! Flax seeds form a gel-like texture when mixed with water, making them a great binder.",
+        "incorrect_explanation": "Not quite. Flax seeds are especially great at binding in cookies and muffins due to their gel-like texture."
+    },
+    {
+        "category": "Dairy",
+        "question": "Why is vinegar or lemon used with non-dairy milk as a buttermilk substitute?",
+        "options": ["Adds sweetness", "Reacts with baking soda for leavening", "Thickens the milk", "Makes it creamier"],
+        "correct": 1,
+        "next": 7,
+        "correct_explanation": "Right! The acid from vinegar or lemon reacts with baking soda to create leavening.",
+        "incorrect_explanation": "Actually, the acid reacts with baking soda to help baked goods rise – a key trait of buttermilk!"
+    },
+    {
+        "category": "Gluten",
+        "question": "What makes Gluten-Free All-Purpose Flour a versatile substitute?",
+        "options": ["It's sweeter than other flours", "It has a nutty flavor", "It works as a 1:1 swap", "It’s best for pancakes only"],
+        "correct": 2,
+        "next": 8,
+        "correct_explanation": "Exactly! It’s designed to be a 1:1 substitute for regular flour, making it super flexible.",
+        "incorrect_explanation": "Close, but it’s the 1:1 swap ratio that makes it such a versatile gluten-free option."
+    },
+    {
+    "category": "Eggs",
+    "question": "Which of the following is NOT a primary use of eggs in baking?",
+    "options": ["Binding", "Leavening", "Coloring", "Moisture"],
+    "correct": 2,
+    "next": 9,
+    "correct_explanation": "Correct! 'Coloring' is not one of the four primary uses of eggs listed—those are Binding, Leavening, Moisture, and Richness.",
+    "incorrect_explanation": "Not quite. While eggs can influence color, the main uses in baking are Binding, Leavening, Moisture, and Richness."
+    },
+    {
+    "category": "Dairy",
+    "question": "Why is coconut oil a good substitute for butter in dairy-free baking?",
+    "options": [
+        "It has a similar salt content",
+        "It helps with leavening",
+        "It adds richness and fat",
+        "It’s a type of protein"
+    ],
+    "correct": 2,
+    "next": 10,
+    "correct_explanation": "Yes! Coconut oil adds richness and fat, which are the main properties butter contributes to baking.",
+    "incorrect_explanation": "Not quite. Coconut oil is used as a butter substitute because it adds richness and fat, just like butter."
+    },
+    {
+    "category": "Gluten",
+    "question": "What property does oat flour bring to gluten-free baking?",
+    "options": [
+        "A crunchy texture and nutty flavor",
+        "A mild, slightly sweet flavor and soft texture",
+        "A strong binding structure",
+        "A bitter aftertaste and dryness"
+    ],
+    "correct": 1,
+    "next": 11,
+    "correct_explanation": "Exactly! Oat flour adds a mild, sweet flavor and creates a soft, tender texture—great for cookies and muffins.",
+    "incorrect_explanation": "Not quite. Oat flour adds a soft, tender texture and a mild, slightly sweet flavor—ideal for gentle bakes."
     }
 ]
 
