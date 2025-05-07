@@ -95,7 +95,7 @@ definitions = {
         "definition": "The process of incorporating air into a batter or dough to help it rise and become light and fluffy."
     },
     "Elasticity": {
-        "definition": "missing definition"
+        "definition": "A food's ability to return to its original shape after being stretched or compressed"
     }
 }
 
