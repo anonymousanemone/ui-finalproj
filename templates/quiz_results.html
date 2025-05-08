@@ -9,7 +9,7 @@
         
         <div class="results-container">
             <h5>You got</h5>
-            <h2 class="score-display"><span id="final-score">0</span> out of 7 points!</h2>
+            <h2 class="score-display"><span id="final-score">0</span> out of 13 points!</h2>
             
             <div class="feedback pt-2">
                 <p id="feedback-text"></p>
@@ -33,11 +33,11 @@
         
         // Provide feedback based on score
         let feedback = '';
-        if (score === 7) {
+        if (score === 13) {
             feedback = "Perfect! You're a baking substitution master!";
-        } else if (score >= 5) {
+        } else if (score >= 9) {
             feedback = "Great job! You know your substitutions well!";
-        } else if (score >= 3) {
+        } else if (score >= 6) {
             feedback = "Good effort! Keep learning about substitutions!";
         } else {
             feedback = "Keep practicing! You'll get better with time!";
