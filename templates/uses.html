@@ -4,14 +4,16 @@
 <div class="water-background text-center d-flex justify-content-center align-items-center">
     <div class="ingredient-container d-flex">
         <div class="ingredient-content">
-            <div class="progress-container">
-                <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+            <div class="mb-3">
+                <div class="progress-container my-0">
+                    <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+                </div>
+                <p class="progress-text mb-0">Lesson {{ current_lesson }} of 12 ({{ progress_percentage }}% complete)</p>
             </div>
-            <p class="progress-text">Lesson {{ current_lesson }} of 12 ({{ progress_percentage }}% complete)</p>
-            <h1 class="notebook-title">{{ general.title }}!</h1>
-            
+
+            <h1 class="notebook-title mb-1">{{ general.title }}!</h1>
             {% if contents.uses %}
-            <h2 class="notebook-subtitle">Uses:</h2>
+            <h2 class="notebook-subtitle mb-0">Uses:</h2>
             <ul class="notebook-list">
                 {% for use in contents.uses %}
                 <li>
@@ -25,10 +27,10 @@
             </ul>
             {% endif %}
             
-            <a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
+            <a href="/learn/{{ back_index }}" class="btn btn-purple mr-2">BACK</a>
             <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
         </div>
-        <div class="ingredient-image-container">
+        <div class="ingredient-image-container me-0">
             <img src="{{ general.image }}" alt="{{ general.title }}" class="ingredient-image">
         </div>
     </div>

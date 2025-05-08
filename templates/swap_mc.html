@@ -2,17 +2,17 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='learn_quiz.css') }}">
 
-<div class="swap-container">
+<div class="swap-container pr-5 pl-1">
   <div class="left-panel">
     <img src="{{general.icon}}" alt="{{general.title}}" class="icon">
     <div class="post-it-box">
       <h1>{{contents.mc_q.swap}}</h1>
     </div>
-    <a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
-    <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
+    <a href="/learn/{{ back_index }}" class="btn btn-purple">< BACK</a>
+    <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT ></a>
   </div>
 
-  <div class="right-panel">
+  <div class="right-panel px-3">
     <div class="progress-container">
       <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
     </div>
@@ -27,7 +27,7 @@
       {% endfor %}
     </div>
 
-    <div id="feedback" class="feedback-box" style="display: none;">
+    <div id="feedback" class="feedback-box mt-3" style="display: none;">
       <p id="feedback-text"></p>
     </div>
   </div>

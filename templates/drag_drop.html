@@ -2,15 +2,14 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='learn_quiz.css') }}">
 
-<div class="swap-container">
+<div class="swap-container pr-5 pl-1">
     <div class="left-panel">
       <img src="{{general.icon}}" alt="{{general.title}}" class="icon">
 		<div class="post-it-box">
-			<h1>Drag and Drop to match the function!
-			</h1>
-      	</div>
-		<a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
-		<a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
+			<h1 class="mb-0 mt-2">Drag and Drop!</h1>
+    </div>
+		<a href="/learn/{{ back_index }}" class="btn btn-purple">< BACK</a>
+    <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT ></a>
     </div>
   
     <div class="right-panel">
@@ -27,8 +26,10 @@
 		<div class="row">
 			{% for drop in contents.drag_drop.drops %}
 			<div class="col-4">
-				<h5>{{drop}}</h5>
-				<div class="dropzone" id="{{drop}}"></div>
+          
+          <div class="dropzone answers text-center" id="{{drop}}">
+            <h5 class="pt-2">{{drop}}</h5>
+          </div>
 			</div>
 			{% endfor %}
 		</div>
@@ -38,7 +39,7 @@
             <button id="retryBtn" class="btn btn-purple" style="display: none;">Try Again</button>
         </div>
 
-        <button id="submitBtn" class="btn btn-purple" disabled>Submit</button>
+        <button id="submitBtn" class="btn btn-purple mt-0" disabled>Submit</button>
 	</div>
 </div>
 
@@ -95,7 +96,7 @@
         $('#retryBtn').hide();
         $('#submitBtn').hide();
       } else {
-        $('#feedback-text').text('Not quite right. Try again!');
+        $('#feedback-text').text('Not quite right.');
         $('#feedback').addClass('incorrect').removeClass('correct').show();
         $('#retryBtn').show();
       }
@@ -125,6 +126,10 @@
       revert: "invalid",
       helper: "clone",
       start: function (event, ui) {
+        ui.helper.css({
+            width: $(this).outerWidth(),
+            height: $(this).outerHeight()
+        });
         $(this).css('opacity', '0.5');
       },
       stop: function (event, ui) {

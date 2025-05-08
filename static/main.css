@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
+:root{
+    --brown: #683b0b;
+    --lavender: #c3a7dd;
+    --dark-lavender: #9a6ec1;
+    --purple: #523969;
+    --yellow: #f9d27d;
+    --orange: #d35400;
+    --dark-orange: #a04000;
+    --cream: #fdf1d4;
+}
+
 body {
     font-family: 'Silkscreen', sans-serif;
-    background-color: #c3a7dd;
+    background-color: var(--lavender);
+    color: var(--brown)
 }
 
 .navbar {
@@ -15,12 +27,12 @@ body {
 }
 
 .navbar a {
-    color: #523969;
+    color: var(--purple);
     text-decoration: none; 
 }
 
 .navbar a:hover {
-    color: #9a6ec1; 
+    color: var(--dark-lavender); 
 }
 
 .home-background {
@@ -37,12 +49,12 @@ body {
 }
 
 .home-box {
-    background-color: #f9d27d;
-    color: #683b0b;
-    border: 5px solid #d35400;
+    background-color: var(--yellow);
+    color: var(--brown);
+    border: 5px solid var(--orange);
     border-radius: 18px;
     padding: 2.5rem;
-    box-shadow: 10px 10px 0 #a04000;
+    box-shadow: 10px 10px 0 var(--dark-orange);
     position: relative;
     max-width: 750px;
     text-align: center;
@@ -50,11 +62,11 @@ body {
 }
 
 .btn-purple {
-    background-color: #c3a7dd;
-    color: #523969;
-    border: 3px solid #523969;
+    background-color: var(--lavender);
+    color: var(--purple);
+    border: 3px solid var(--purple);
     border-radius: 15px;
-    box-shadow: #523969 4px 4px 0;
+    box-shadow: var(--purple) 4px 4px 0;
     padding: 10px 20px;
     text-align: center;
     font-size: 25px;
@@ -62,26 +74,26 @@ body {
 
 .btn-purple-same-size {
     width: 150px; 
-    background-color: #c3a7dd;
-    color: #523969;
-    border: 3px solid #523969;
+    background-color: var(--lavender);
+    color: var(--purple);
+    border: 3px solid var(--purple);
     border-radius: 15px;
-    box-shadow: #523969 4px 4px 0;
+    box-shadow: var(--purple) 4px 4px 0;
     padding: 10px 20px;
     text-align: center;
     font-size: 25px;
 }
 
 .btn-purple-same-size:hover {
-    background-color: #aa8cc5;
+    background-color: var(--lavender);
 }
   
 .btn-purple:hover {
-    background-color: #aa8cc5;
+    background-color: var(--lavender);
 }
 
 .header-banner {
-    background-color: #f39c12;
+    background-color: var(--orange);
     height: 20px;
     width: 100%;
     position: absolute;
@@ -110,36 +122,44 @@ body {
 }
 
 .notebook-container {
-    background-color: #fdf1d4;
-    border: 5px solid #d35400;
+    background-color: var(--cream);
+    border: 5px solid var(--orange);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 10px 10px 0 #a04000;
+    box-shadow: 10px 10px 0 var(--dark-orange);
     max-width: 800px;
     text-align: center;
     position: relative;
 }
 
 .notebook-title {
-    font-family: 'Silkscreen', sans-serif;
     color: #d4a017;
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
 .notebook-subtitle {
-    font-family: 'Silkscreen', sans-serif;
-    color: #c0392b;
+    color: var(--dark-orange);
     font-size: 1.75rem;
     margin-bottom: 1rem;
 }
 
 .notebook-text {
-    font-family: 'Silkscreen', sans-serif;
     color: #c0392b;
     font-size: 1.25rem;
     margin-bottom: 2rem;
 }
+
+.notebook-list {
+    color: var(--brown);
+    font-size: 1.2rem;
+}
+
+.notebook-list a{
+    color: var(--brown);
+    text-decoration: underline;
+}
+
 
 .category-container {
     display: flex;
@@ -155,14 +175,12 @@ body {
 }
 
 .category.visited {
-    background-color: #f9d27d;
+    background-color: var(--yellow);
 }
 
 .category-text {
-    font-family: 'Silkscreen', sans-serif;
     font-size: 1.5rem;
-    color: #683b0b;
-    color: #683b0b;
+    color: var(--brown);
     margin: 0.5rem 0rem 0rem 0rem;
 }
 
@@ -191,7 +209,7 @@ body {
 
 .ingredient-container {
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     background-color: #fdf1d4;
     border: 5px solid #d35400;
     border-radius: 15px;
@@ -203,18 +221,18 @@ body {
 }
 
 .ingredient-content {
-    flex: 1;
-    padding: 1rem;
+    /* flex: 1; */
+    padding: 2rem;
 }
 
 .ingredient-image-container {
-    flex: 1;
+    /* flex: 1; */
     padding: 1rem;
 }
 
 .ingredient-image {
     max-width: auto;
-    max-height: 490px;
+    max-height: 470px;
     border: 5px solid #d35400;
     border-radius: 10px;
     box-shadow: 5px 5px 0 #a04000;
@@ -227,15 +245,18 @@ body {
     padding: 2rem;
     box-shadow: 10px 10px 0 #a04000;
     max-width: 900px;
+    min-height: 700px;
     width: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .substitutes-title {
-    font-family: 'Silkscreen', sans-serif;
     color: #d4a017;
     font-size: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .substitutes-grid {
@@ -247,34 +268,47 @@ body {
 
 .substitute-card {
     background-color: #fff;
-    border: 3px solid #d35400;
     border-radius: 10px;
-    padding: 1rem;
+    border: 3px solid #d35400;
     box-shadow: 5px 5px 0 #a04000;
+    padding: 1rem;
     width: 250px;
     text-align: left;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .substitute-title {
-    font-family: 'Silkscreen', sans-serif;
-    color: #fff;
-    font-size: 1.5rem;
+    color: white;
+    font-size: 1.2rem;
     padding: 0.5rem;
     border-radius: 5px;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .substitute-text {
-    font-family: 'Silkscreen', sans-serif;
-    color: #683b0b;
+    color: var(--brown);
     font-size: 1rem;
     line-height: 1.5;
 }
 
+/* .substitute-content {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    height: 0;
+}
+
+.substitute-content.expanded {
+    opacity: 1;
+    height: auto;
+} */
+
 .progress-container {
     width: 100%;
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
+    background-color: var(--cream);
+    border: 2px solid var(--dark-orange);
     border-radius: 10px;
     margin: 1rem 0;
     height: 20px;
@@ -283,20 +317,23 @@ body {
 
 .progress-bar {
     height: 100%;
-    background-color: #4caf50; /* Green progress bar */
+    background-color: var(--orange); /* Green progress bar */
     transition: width 0.3s ease;
 }
 
 .progress-text {
-    font-family: 'Silkscreen', sans-serif;
-    font-size: 1rem;
-    color: #333;
+    font-size: 0.8rem;
+    color: var(--dark-orange);
     text-align: center;
-    margin-top: 0.5rem;
 }
 
 .category-link.disabled {
     color: gray;
     pointer-events: none; /* Prevent clicking */
     opacity: 0.5; /* Make it visually distinct */
+}
+
+.emphasis {
+    color: var(--orange);
+    font-weight: bold;
 }

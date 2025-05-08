@@ -2,31 +2,56 @@
 {% block content %}
 
 <div class="learn-background text-center d-flex justify-content-center align-items-center">
-    <div class="substitutes-container">
-        <div class="progress-container">
-            <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+    <div class="substitutes-container py-3">
+        <div class="mb-2">
+            <div class="progress-container my-0">
+                <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+            </div>
+            <p class="progress-text mb-0 mt-1">Lesson {{ current_lesson }} of 12 ({{ progress_percentage }}% complete)</p>
         </div>
-        <p class="progress-text">Lesson {{ current_lesson }} of 12 ({{ progress_percentage }}% complete)</p>
+
         <h1 class="substitutes-title">{{ general.title }} substitution overview</h1>
-        <div class="substitutes-grid">
+
+        <div class="container">
             {% for substitute in contents.substitutes %}
             <div class="substitute-card">
                 <h2 class="substitute-title" style="background-color: {{ substitute.color | default('#cccccc') }}">{{ substitute.name }}</h2>
+                <div class="substitute-content">
                 {% if substitute.best_in %}
-                <p class="substitute-text"><strong>Works Best In:</strong> {{ substitute.best_in }}</p>
+                <p class="substitute-text"><span class="emphasis">Works Best In:</span> {{ substitute.best_in }}</p>
                 {% endif %}
                 {% if substitute.adds %}
-                <p class="substitute-text"><strong>Adds:</strong> {{ substitute.adds }}</p>
+                <p class="substitute-text"><span class="emphasis">Adds:</span> {{ substitute.adds }}</p>
                 {% endif %}
                 {% if substitute.why %}
-                <p class="substitute-text"><strong>Why it Works:</strong> {{ substitute.why }}</p>
+                <p class="substitute-text"><span class="emphasis">Why it Works:</span> {{ substitute.why }}</p>
                 {% endif %}
+                </div>
             </div>
             {% endfor %}
-            <a href="/learn/{{ back_index }}" class="btn btn-purple">BACK</a>
-            <a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
+
         </div>
+        <div id="buttons-div" class="mt-auto pt-3">
+			<a href="/learn/{{ back_index }}" class="btn btn-purple me-3">BACK</a>
+			<a href="/learn/{{ next_index }}" class="btn btn-purple">NEXT</a>
+		</div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".substitute-content").slideUp();
+      $(".substitute-title").click(function () {
+        const content = $(this).next(".substitute-content");
+        const isVisible = content.is(":visible");
+  
+        $(".substitute-content").slideUp();
+  
+        if (!isVisible) {
+          content.slideDown();
+        }
+      });
+    });
+  </script>
 
 {% endblock %}
