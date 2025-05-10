@@ -160,7 +160,7 @@ quiz_questions = [
     "options": ["Binding", "Leavening", "Coloring", "Moisture"],
     "correct": 2,
     "next": 9,
-    "correct_explanation": "Correct! 'Coloring' is not one of the four primary uses of eggs listed—those are Binding, Leavening, Moisture, and Richness.",
+    "correct_explanation": "Correct! Coloring is not one of the four primary uses of eggs listed—those are Binding, Leavening, Moisture, and Richness.",
     "incorrect_explanation": "Not quite. While eggs can influence color, the main uses in baking are Binding, Leavening, Moisture, and Richness."
     },
     {
@@ -195,7 +195,7 @@ quiz_questions = [
 
 final_question = {
     "title": "Let's Make Cookies!",
-    "instruction": "Select the correct items from the cupboard to make the substitutes that allow all guests to enjoy together!",
+    "instruction": "Select the correct items from the cupboard to make the substitutes that are gluten-free, dairy-free, egg-free, and nut-free!",
     "ingredients": [
         {"name": "GF AP Flour", "image": "flour.webp", "correct": True},
         {"name": "Almond Flour", "image": "almond.webp", "correct": False},
@@ -208,6 +208,6 @@ final_question = {
         {"name": "Eggs", "image": "egg.png", "correct": False}
     ],
     "correct_explanation": "Perfect! Using GF AP Flour (gluten-free), Bananas (egg substitute), Flax Seeds (binding), Oat Milk (dairy-free), and Vegan Butter makes cookies everyone can enjoy!",
-    "incorrect_explanation": "Not quite! Remember, we need to make cookies that are gluten-free, dairy-free, and egg-free. Try selecting GF AP Flour, Bananas, Flax Seeds, Oat Milk, and Vegan Butter.",
+    "incorrect_explanation": "Not quite! Remember, we need to make cookies that are gluten-free, dairy-free, egg-free, and nut-free. Try selecting GF AP Flour, Bananas, Flax Seeds, Oat Milk, and Vegan Butter.",
     "background_image": "/static/images/kitchen.gif"
 }
