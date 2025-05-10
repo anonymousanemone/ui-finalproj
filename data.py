@@ -208,6 +208,6 @@ final_question = {
         {"name": "Eggs", "image": "egg.png", "correct": False}
     ],
     "correct_explanation": "Perfect! Using GF AP Flour (gluten-free), Bananas (egg substitute), Flax Seeds (binding), Oat Milk (dairy-free), and Vegan Butter makes cookies everyone can enjoy!",
-    "incorrect_explanation": "Not quite! Remember, we need to make cookies that are gluten-free, dairy-free, egg-free, and nut-free. Try selecting GF AP Flour, Bananas, Flax Seeds, Oat Milk, and Vegan Butter.",
+    "incorrect_explanation": "Not quite! Remember, we need to make cookies that are gluten-free, dairy-free, egg-free, and nut-free.",
     "background_image": "/static/images/kitchen.gif"
 }

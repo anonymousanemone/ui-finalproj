@@ -26,7 +26,7 @@
             <div class="col-md-8 mb-4 mt-5"><div class="cupboard">
                 <img src="/static/images/shelf2.png" class="img-fluid" alt="Background">
                 <div class="content-over-image">
-                    <div class="row d-flex flex-wrap justify-content-center m-5 align-items-end">
+                    <div class="row d-flex flex-wrap justify-content-center m-5 align-items-end g-2">
                         {% for ingredient in question.ingredients %}
                         <div class="ingredient-item col-md-4 px-5 py-2" data-correct="{{ ingredient.correct }}">
                             <label class="ingredient-name">{{ ingredient.name }}</label>
@@ -52,7 +52,6 @@ $(document).ready(function() {
     $('#back-button').click(function() {
         window.location.href = '/quiz/4';
     });
-
     $('#submit-button').click(function() {
         let allCorrect = true;
         let selectedCount = 0;
@@ -60,24 +59,28 @@ $(document).ready(function() {
         $('.ingredient-item').each(function() {
             const isSelected = $(this).hasClass('selected');
             const shouldBeSelected = $(this).data('correct') === 'True';
-            
-            console.log('Ingredient:', $(this).find('.ingredient-name').text());
-            console.log('Is Selected:', isSelected);
-            console.log('Should Be Selected:', shouldBeSelected);
-            console.log('Data Correct Value:', $(this).data('correct'));
+
+            // Reset visual feedback
+            $(this)
+                .removeClass('correct-highlight wrong-highlight translucent')
+
+            if (shouldBeSelected) {
+                $(this).addClass('correct-highlight');
+            }
 
             if (isSelected) {
                 selectedCount++;
                 if (!shouldBeSelected) {
+                    $(this).addClass('wrong');
                     allCorrect = false;
                 }
-            } else if (shouldBeSelected) {
-                allCorrect = false;
+            } else {
+                $(this).addClass('translucent');
+                if (shouldBeSelected) {
+                    allCorrect = false;
+                }
             }
         });
-
-        console.log('All Correct:', allCorrect);
-        console.log('Selected Count:', selectedCount);
 
         if (selectedCount === 0) {
             alert('Please select some ingredients!');
@@ -85,33 +88,84 @@ $(document).ready(function() {
         }
 
         if (allCorrect) {
-            // Show success feedback
             $('#feedback-text').text("{{ question.correct_explanation }}");
-            $('#feedback').show();
-            $('#feedback').removeClass("wrong")
-            $('#feedback').addClass("correct")
-            $('#submit-button').text('Results');
-            
-            // Store the answer in localStorage
+            $('#feedback').show().addClass("correct");
+
             let score = localStorage.getItem('quiz_score') || 0;
-            score = parseInt(score) + 4;  // Give 4 points for getting all ingredients correct
+            score = parseInt(score) + 4;
             localStorage.setItem('quiz_score', score);
             localStorage.setItem('quiz_complete', 'true');
-
-            // Change button to go to results
-            $('#submit-button').off('click').click(function() {
-                window.location.href = '/quiz/results';
-            });
         } else {
-            // Show try again feedback
             $('#feedback-text').text("{{ question.incorrect_explanation }}");
-            $('#feedback').show();
-            $('#feedback').addClass("wrong")
-            
-            // Clear selections
-            $('.ingredient-item').removeClass('selected');
+            $('#feedback').show().addClass("wrong");
         }
+
+        $('#submit-button').text('Results');
+        $('#submit-button').off('click').click(function() {
+            window.location.href = '/quiz/results';
+        });
     });
+
+
+    // $('#submit-button').click(function() {
+    //     let allCorrect = true;
+    //     let selectedCount = 0;
+
+    //     $('.ingredient-item').each(function() {
+    //         const isSelected = $(this).hasClass('selected');
+    //         const shouldBeSelected = $(this).data('correct') === 'True';
+            
+    //         console.log('Ingredient:', $(this).find('.ingredient-name').text());
+    //         console.log('Is Selected:', isSelected);
+    //         console.log('Should Be Selected:', shouldBeSelected);
+    //         console.log('Data Correct Value:', $(this).data('correct'));
+
+    //         if (isSelected) {
+    //             selectedCount++;
+    //             if (!shouldBeSelected) {
+    //                 allCorrect = false;
+    //             }
+    //         } else if (shouldBeSelected) {
+    //             allCorrect = false;
+    //         }
+    //     });
+
+    //     console.log('All Correct:', allCorrect);
+    //     console.log('Selected Count:', selectedCount);
+
+    //     if (selectedCount === 0) {
+    //         alert('Please select some ingredients!');
+    //         return;
+    //     }
+
+    //     if (allCorrect) {
+    //         // Show success feedback
+    //         $('#feedback-text').text("{{ question.correct_explanation }}");
+    //         $('#feedback').show();
+    //         // $('#feedback').removeClass("wrong")
+    //         $('#feedback').addClass("correct")
+            
+    //         // Store the answer in localStorage
+    //         let score = localStorage.getItem('quiz_score') || 0;
+    //         score = parseInt(score) + 4;  // Give 4 points for getting all ingredients correct
+    //         localStorage.setItem('quiz_score', score);
+    //         localStorage.setItem('quiz_complete', 'true');
+
+    //     } else {
+    //         // Show try again feedback
+    //         $('#feedback-text').text("{{ question.incorrect_explanation }}");
+    //         $('#feedback').show();
+    //         $('#feedback').addClass("wrong")
+            
+    //         // Clear selections
+    //         $('.ingredient-item').removeClass('selected');
+    //     }
+    //     // Change button to go to results
+    //     $('#submit-button').text('Results');
+    //     $('#submit-button').off('click').click(function() {
+    //             window.location.href = '/quiz/results';
+    //     });
+    // });
 });
 </script>
 {% endblock %} 

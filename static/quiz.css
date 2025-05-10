@@ -186,3 +186,19 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+.correct-highlight {
+    background-color: rgba(200, 247, 197, 0.5) !important;
+    border: 3px solid green;
+    border-radius: 10px;
+}
+
+.wrong-highlight {
+    background-color: rgba(248, 215, 218, 0.5) !important; /* Light red */
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+.translucent {
+    opacity: 0.5;
+}
