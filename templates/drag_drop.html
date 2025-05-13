@@ -28,7 +28,7 @@
 			<div class="col-4">
           
           <div class="dropzone answers text-center" id="{{drop}}">
-            <h5 class="pt-2">{{drop}}</h5>
+            <h5 class="pt-2 do-not-clear">{{drop}}</h5>
           </div>
 			</div>
 			{% endfor %}
@@ -103,10 +103,11 @@
     }
 
     function resetGame() {
-      $('.dropzone').not('#itemPool').empty();
-      $('#itemPool').empty();
+      $('.dropzone').each(function () {
+        $(this).children('.draggable-item').remove();
+      });
       {% for drag in contents.drag_drop.drags %}
-      $('#itemPool').append(`<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>`);
+        $('#itemPool').append(`<div class="draggable-item" data-id="{{drag}}">{{drag}}</div>`);
       {% endfor %}
       $('.draggable-item').draggable({
         revert: "invalid",
@@ -118,6 +119,7 @@
           $(this).css('opacity', '1');
         }
       });
+      $('#submitBtn').show();
       $('#feedback').hide();
       checkSubmit();
     }
